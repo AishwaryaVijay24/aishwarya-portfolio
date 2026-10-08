@@ -41,11 +41,25 @@ The experience should feel:
 * sophisticated
 * technical
 * warm
+* playful
+* expressive
 * editorial
 * modern
 * intentional
-* calm
 * confident
+
+## What "playful" means here
+
+Playful and expressive comes from:
+
+* bold, expressive display typography
+* confident colour-blocked sections
+* tactile layering, such as overlapping type and visuals or slightly offset elements
+* personality in micro-interactions and copy
+
+It does NOT come from decoration. Illustrations, mascots, clip-art shapes, sparkles, blobs and torn-paper edges are still excluded (see §6).
+
+Playful must never undermine technical credibility. The content must still read as the work of a serious engineer.
 
 Avoid making the site feel:
 
@@ -96,6 +110,24 @@ It can appear in:
 * links or buttons where appropriate
 
 Do not make the entire interface orange.
+
+## Secondary colour
+
+A muted indigo is the secondary colour.
+
+It can be used for colour-blocked sections and larger surfaces where orange would be too loud.
+
+Orange remains the accent. Indigo must not compete with it.
+
+The exact indigo value and its pairing with orange will be set in a swatch study, checked for contrast in both modes.
+
+## Colour mode
+
+Both light and dark mode are supported.
+
+Light mode is designed first.
+
+`#D97757` has about 3.1:1 contrast on white. That passes for large text, icons and UI elements but fails WCAG AA for body text. Light mode therefore needs a darker orange for small text and links.
 
 ---
 
@@ -264,6 +296,14 @@ Avoid making every section visually identical.
 Not every piece of content needs to be inside a card.
 
 Use cards when they provide meaningful grouping or interaction.
+
+## Numbered lists
+
+Numbered or ruled lists are a core pattern: large index numbers and thin dividing rules, without card containers.
+
+Use them for experience, research and capabilities.
+
+Reserve cards for projects, where they support interaction.
 
 ---
 
@@ -500,6 +540,62 @@ Format:
 [Date]
 
 This section prevents the visual direction from drifting as the project grows.
+
+### Tone: playful and expressive
+
+**Decision:**
+The portfolio leans playful and expressive rather than calm and minimal. This is expressed through typography, colour blocking, layering and micro-interactions, not decoration.
+
+**Reason:**
+Chosen by Aishwarya after reviewing the references. It gives the portfolio personality and keeps it from looking like a template.
+
+**Inspired by:**
+Luna, Petman (`design/inspiration/pinterest/`)
+
+**Date:**
+2026-10-08
+
+### Palette: orange accent + muted indigo secondary
+
+**Decision:**
+`#D97757` stays the accent. A muted indigo is added as the secondary colour for colour-blocked sections. Exact values to be set in a swatch study.
+
+**Reason:**
+Muted indigo with a warm neutral recurs across several references, and it complements the warm orange.
+
+**Inspired by:**
+Luna, Petman, Kamui
+
+**Date:**
+2026-10-08
+
+### Colour mode: light first
+
+**Decision:**
+Light mode is designed first. Dark mode is also supported.
+
+**Reason:**
+Suits the warm, expressive direction. Requires a darker orange for small text on light backgrounds.
+
+**Inspired by:**
+Luna, Petman, numbered services list
+
+**Date:**
+2026-10-08
+
+### Numbered lists as a core pattern
+
+**Decision:**
+Experience, research and capabilities use numbered or ruled lists. Cards are reserved for projects.
+
+**Reason:**
+Avoids card grids for every section (§6, §7) and builds section variety.
+
+**Inspired by:**
+Numbered services list (`design/inspiration/videos/numbered-services-list.png`), sanlife portfolio
+
+**Date:**
+2026-10-08
 
 ---
 
