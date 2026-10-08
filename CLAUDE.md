@@ -316,8 +316,10 @@ Project information must come from the backend API.
 
 For Phase 1, seed the database with verified information about:
 
-* CyberResponse
-* Resurgent Intelligence
+* CyberResponse v2
+* CyberResponse (IEEE-published)
+
+Source of verified content: the résumé in `content/` (kept out of git). Resurgent Intelligence is deliberately not included in the portfolio.
 
 Clearly label experimental/planned projects appropriately.
 

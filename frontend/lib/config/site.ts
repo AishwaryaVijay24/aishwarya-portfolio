@@ -26,9 +26,9 @@ export const site = {
 
 const github = "AishwaryaVijay24";
 
-// TODO(Aishwarya): add LinkedIn and email. They stay hidden until set.
-const linkedin = null as string | null;
-const email = null as string | null;
+// From the résumé in content/. Set either to null to hide it.
+const linkedin = "https://www.linkedin.com/in/aishwarya-vijay-4230a234a" as string | null;
+const email = "aishwaryavijay24@gmail.com" as string | null;
 
 export const externalLinks: ExternalLink[] = [
   { id: "github", label: "GitHub", href: `https://github.com/${github}`, display: `github.com/${github}` },

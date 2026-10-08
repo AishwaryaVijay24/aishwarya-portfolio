@@ -1,0 +1,315 @@
+{
+  "projects": [
+    {
+      "slug": "cyberresponse-v2",
+      "title": "CyberResponse v2",
+      "summary": "Casework platform backend with AI agents.",
+      "description": "Designed the backend around a core case API, wrapped by an MCP server that exposes 5+ case-management tools to Python workflows.\n\nEnforced safe state transitions: every agent action passes schema validation and human approval before any case-state change.\n\nOrchestrated a LangGraph supervisor on Azure OpenAI coordinating triage and evidence agents with per-case memory.\n\nTested on 150+ simulated scenarios with LangSmith: 99% schema adherence; a self-correction step lifted first-pass approval from 65% to 88%.",
+      "status": "in_progress",
+      "technologies": [
+        "Python",
+        "MCP",
+        "LangGraph",
+        "Azure OpenAI",
+        "LangSmith"
+      ],
+      "repository_url": null,
+      "demo_url": null,
+      "featured": true
+    },
+    {
+      "slug": "cyberresponse",
+      "title": "CyberResponse",
+      "summary": "Fraud reporting platform, published at IEEE ICoECIT 2026.",
+      "description": "Co-built a fraud intake platform as microservices (API, AI worker, notifications) with Redis and PostgreSQL, ML-based classification, real-time case tracking and an operator admin dashboard.\n\nPublished at IEEE ICoECIT 2026 (DOI: 10.1109/ICoECIT68303.2026.11497960).",
+      "status": "completed",
+      "technologies": [
+        "Microservices",
+        "Redis",
+        "PostgreSQL",
+        "ML classification"
+      ],
+      "repository_url": null,
+      "demo_url": null,
+      "featured": true
+    }
+  ],
+  "experience": [
+    {
+      "organization": "L&D Nexus",
+      "role": "Full Stack and AI Developer (Part-time)",
+      "location": "London, UK",
+      "start_date": "2025-09",
+      "end_date": "2026-04",
+      "summary": null,
+      "highlights": [
+        "Shipped embedding-based semantic job matching (all-MiniLM-L6-v2 and pgvector) as the platform's core feature for 100+ candidates and recruiters, replacing keyword search across 500+ job listings.",
+        "Built the core backend in Java Spring Boot (20+ REST endpoints, PostgreSQL schema) calling a separate Python FastAPI embedding microservice, and documented the APIs with OpenAPI.",
+        "Worked in an Agile Scrum team, taking part in sprint planning, standups and code reviews on pull requests.",
+        "Owned debugging of a production latency issue: profiled with OpenTelemetry and Spring Boot Actuator, found pgvector search took 5 ms while an ORM N+1 query caused 850 ms, and cut p95 latency to 120 ms with JPA batch fetching.",
+        "Built fault-tolerant service calls between Spring Boot and FastAPI using Resilience4j circuit breakers and exponential backoff, with automatic fallback to PostgreSQL full-text search during outages.",
+        "Improved precision@5 by about 20% over the keyword baseline through evaluation, error analysis and 100+ test cases, and iterated the pipeline after user feedback revealed seniority-level mismatches.",
+        "Owned deployment of the services in Docker alongside React and Next.js UIs, and presented accuracy versus latency trade-offs to leadership, securing sign-off to launch matching as the core feature."
+      ],
+      "technologies": [
+        "Java",
+        "Spring Boot",
+        "Python",
+        "FastAPI",
+        "PostgreSQL",
+        "pgvector",
+        "OpenTelemetry",
+        "Resilience4j",
+        "Docker",
+        "React",
+        "Next.js"
+      ]
+    },
+    {
+      "organization": "Syngenta India HQ",
+      "role": "Software Engineer Intern",
+      "location": "Pune, India",
+      "start_date": "2025-01",
+      "end_date": "2025-07",
+      "summary": null,
+      "highlights": [
+        "Replaced manual pre-release checks with GitLab CI/CD pipelines running automated test suites on every code change.",
+        "Built Java Selenium and TestNG regression suites covering 40+ workflows.",
+        "Validated 100K+ records in Python and SQL, catching 2,500+ data quality issues before they reached downstream systems."
+      ],
+      "technologies": [
+        "GitLab CI/CD",
+        "Java",
+        "Selenium",
+        "TestNG",
+        "Python",
+        "SQL"
+      ]
+    }
+  ],
+  "education": [
+    {
+      "institution": "Queen Mary University of London",
+      "degree": "MSc",
+      "field_of_study": "Artificial Intelligence",
+      "start_date": "2025-09",
+      "end_date": "2026-09",
+      "summary": "Coursework: Machine Learning, NLP, Deep Learning, Large Language Models, Deep Reinforcement Learning."
+    },
+    {
+      "institution": "Symbiosis Institute of Technology, Pune",
+      "degree": "BTech",
+      "field_of_study": "Computer Science and Engineering",
+      "start_date": "2021-07",
+      "end_date": "2025-07",
+      "summary": "CGPA 8.0/10. Coursework: Data Structures and Algorithms, Object-Oriented Programming, Operating Systems, DBMS, Computer Networks."
+    }
+  ],
+  "research": [
+    {
+      "title": "CyberResponse: Fraud Reporting Platform",
+      "summary": "Co-built a fraud intake platform as microservices (API, AI worker, notifications) with Redis and PostgreSQL, ML-based classification, real-time case tracking and an operator admin dashboard. Published at IEEE ICoECIT 2026 (DOI: 10.1109/ICoECIT68303.2026.11497960).",
+      "status": "published",
+      "url": "https://doi.org/10.1109/ICoECIT68303.2026.11497960"
+    }
+  ],
+  "publications": [
+    {
+      "title": "CyberResponse: Fraud Reporting Platform",
+      "venue": "IEEE ICoECIT",
+      "year": 2026,
+      "authors": [],
+      "url": "https://doi.org/10.1109/ICoECIT68303.2026.11497960"
+    }
+  ],
+  "skills": [
+    {
+      "name": "Python",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "TypeScript",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "JavaScript",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "Java",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "SQL",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "React",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "Next.js",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "Node.js",
+      "category": "Languages and Frontend"
+    },
+    {
+      "name": "Data structures and algorithms",
+      "category": "Core CS"
+    },
+    {
+      "name": "Object-oriented design",
+      "category": "Core CS"
+    },
+    {
+      "name": "Debugging and troubleshooting",
+      "category": "Core CS"
+    },
+    {
+      "name": "Unit testing",
+      "category": "Core CS"
+    },
+    {
+      "name": "Code reviews",
+      "category": "Core CS"
+    },
+    {
+      "name": "FastAPI",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Spring Boot",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Microservices",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "REST APIs",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Data pipelines",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Redis queues",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Async processing",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Fault-tolerant service design",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Resilience4j",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "OpenTelemetry",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "Profiling",
+      "category": "Backend and Data"
+    },
+    {
+      "name": "PostgreSQL",
+      "category": "Databases"
+    },
+    {
+      "name": "pgvector",
+      "category": "Databases"
+    },
+    {
+      "name": "MySQL",
+      "category": "Databases"
+    },
+    {
+      "name": "Redis",
+      "category": "Databases"
+    },
+    {
+      "name": "Microsoft Azure (Azure OpenAI Service)",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "Docker",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "GitLab CI/CD",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "Render",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "Git",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "Linux",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "pytest",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "Selenium",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "TestNG",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "Agile (Scrum)",
+      "category": "Cloud and DevOps"
+    },
+    {
+      "name": "PyTorch",
+      "category": "AI/ML"
+    },
+    {
+      "name": "Hugging Face",
+      "category": "AI/ML"
+    },
+    {
+      "name": "Embeddings",
+      "category": "AI/ML"
+    },
+    {
+      "name": "RAG",
+      "category": "AI/ML"
+    },
+    {
+      "name": "LangGraph",
+      "category": "AI/ML"
+    },
+    {
+      "name": "MCP",
+      "category": "AI/ML"
+    },
+    {
+      "name": "Azure OpenAI",
+      "category": "AI/ML"
+    },
+    {
+      "name": "LangSmith evals",
+      "category": "AI/ML"
+    },
+    {
+      "name": "AI coding tools (Claude)",
+      "category": "AI/ML"
+    }
+  ]
+}

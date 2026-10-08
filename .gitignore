@@ -38,3 +38,6 @@ dist/
 
 # Logs
 *.log
+
+# Personal source documents (résumé with contact details). Kept local, never committed.
+content/
