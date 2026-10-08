@@ -81,7 +81,8 @@ docker compose up --build
 * React
 * Tailwind CSS
 * shadcn/ui where useful
-* Framer Motion where useful
+* Framer Motion where useful (the `motion` package)
+* React Three Fiber + Drei for the single hero 3D scene only (see DESIGN.md §8)
 
 Use modern Next.js conventions.
 

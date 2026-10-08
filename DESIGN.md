@@ -33,31 +33,41 @@ The visual language should balance:
 * human personality
 * usability
 
+## Identity
+
+> **Tech girl + AI engineer + creative builder.**
+>
+> She builds serious technology, but the experience has personality.
+
+The site should communicate a woman working deeply in technology through typography, colour, technical visuals, motion and composition. It must not rely on stereotypes.
+
 ## Desired feeling
 
 The experience should feel:
 
-* premium
-* sophisticated
+* futuristic
+* feminine, without being stereotypically feminine
 * technical
-* warm
-* playful
+* intelligent
+* elegant
 * expressive
-* editorial
-* modern
-* intentional
+* slightly playful
 * confident
+* intentional
+
+Confident rather than cute.
 
 ## What "playful" means here
 
 Playful and expressive comes from:
 
-* bold, expressive display typography
-* confident colour-blocked sections
-* tactile layering, such as overlapping type and visuals or slightly offset elements
-* personality in micro-interactions and copy
+* expressive display typography set against a strong technical sans
+* confident colour blocking, especially the deep indigo hero band
+* tactile layering, such as type passing in front of and behind the hero visual
+* fluid, responsive motion and micro-interactions
+* personality in copy
 
-It does NOT come from decoration. Illustrations, mascots, clip-art shapes, sparkles, blobs and torn-paper edges are still excluded (see §6).
+It does NOT come from decoration. Illustrations, mascots, clip-art shapes, sparkles, blobs and torn-paper edges are excluded (see §6).
 
 Playful must never undermine technical credibility. The content must still read as the work of a serious engineer.
 
@@ -65,8 +75,10 @@ Avoid making the site feel:
 
 * generic
 * corporate
-* overly futuristic
-* cyberpunk
+* cyberpunk or sci-fi cliché
+* cute or childish
+* overly pastel
+* stereotypically "girly" (pink, girl-boss imagery, female illustrations, stock photos)
 * noisy
 * template-like
 * AI-generated
@@ -90,36 +102,41 @@ Core message:
 
 > I build intelligent software systems from the model layer to the production stack.
 
-## Brand colour
+## Colour
 
-Primary brand orange:
+The palette is built from lilac, lavender, purple, blue and deep indigo on a soft, cool neutral.
 
-`#D97757`
+Orange (`#D97757`) is no longer used.
 
-The orange should be used intentionally rather than covering large areas of the interface.
+### Roles
 
-It can appear in:
+| Role | Use |
+|---|---|
+| **Night** | Deep indigo anchor. The hero band and the 3D scene. Gives depth and the futuristic feel. |
+| **Lilac** and **periwinkle** | Expressive colours. Used as light: the neural mesh, highlights on Night, big numerals. Not as large fills. |
+| **Violet** | Text links, the primary button, active states on light surfaces. |
+| **Ground** | Cool lavender-grey for reading sections. Not pink. |
+| **Ink** / **muted** | Body and secondary text. |
 
-* accents
-* interactive states
-* selected typography
-* icons
-* small visual details
-* the hero 3D object
-* diagrams
-* links or buttons where appropriate
+Colour comes mainly from the Night band and the neural mesh. Reading sections stay calm and neutral, so the page never turns pastel overall.
 
-Do not make the entire interface orange.
+### Values
 
-## Secondary colour
+Approved after the hero prototype. Every pair below passes WCAG AA (4.5 for text, 3.0 for large text and UI).
 
-A muted indigo is the secondary colour.
+| Token | Light | Dark |
+|---|---|---|
+| ground | `#F2F1F7` | `#0E0C22` |
+| ink | `#15132B` | `#ECEAF8` |
+| muted | `#565470` | `#A4A0C0` |
+| violet | `#5B3DD0` | `#B3A1FF` |
+| night | `#110E2E` | `#07061A` |
+| on-night | `#EEEBFA` | `#EEEBFA` |
+| night-muted | `#A9A5CC` | `#A9A5CC` |
+| lilac | `#B9A6F5` | `#C8B8FF` |
+| periwinkle | `#7E95FF` | `#93A8FF` |
 
-It can be used for colour-blocked sections and larger surfaces where orange would be too loud.
-
-Orange remains the accent. Indigo must not compete with it.
-
-The exact indigo value and its pairing with orange will be set in a swatch study, checked for contrast in both modes.
+Measured contrast (light / dark): ink on ground 16.1 / 16.2, muted on ground 6.5 / 7.7, violet on ground 6.2 / 8.6, on-night on night 15.9 / 17.1, night-muted on night 7.9 / 8.5, lilac on night 8.7 / 11.2, periwinkle on night 6.8 / 8.8, primary button label 7.0 / 8.6.
 
 ## Colour mode
 
@@ -127,7 +144,23 @@ Both light and dark mode are supported.
 
 Light mode is designed first.
 
-`#D97757` has about 3.1:1 contrast on white. That passes for large text, icons and UI elements but fails WCAG AA for body text. Light mode therefore needs a darker orange for small text and links.
+In light mode the hero is still a Night band. That is colour blocking, not dark mode.
+
+## Typography
+
+| Role | Face | Use |
+|---|---|---|
+| Technical sans | **Instrument Sans** (variable width and weight) | Body text, UI, and strong condensed headlines |
+| Expressive display | **Fraunces Italic** (soft, slightly quirky letterforms) | The name, one emphasised word in a headline, large list numerals |
+| Mono | **DM Mono** | Metadata labels, routes, technical captions |
+
+The personality comes from the interplay: a strong sans headline with one word set in Fraunces Italic, for example "AI × *Software* Engineering".
+
+Fraunces is for moments, never for running text.
+
+No decorative script fonts.
+
+All three are on Google Fonts under the SIL Open Font License and will be self-hosted through Next.js.
 
 ---
 
@@ -297,6 +330,18 @@ Not every piece of content needs to be inside a card.
 
 Use cards when they provide meaningful grouping or interaction.
 
+## Section surfaces: graph paper
+
+Reading sections below the hero sit on a faint graph-paper grid (minor and major lines from the ink colour at very low opacity).
+
+Around the mouse cursor, a small area of the grid lights up in violet. No spotlight on touch devices or with reduced motion.
+
+## Project card art
+
+Project cards use a small generated network graph (nodes, connections and one highlighted path).
+
+Do not use chart-like art (lines that rise and fall) on project cards: it reads as performance data, and the portfolio never shows invented metrics.
+
 ## Numbered lists
 
 Numbered or ruled lists are a core pattern: large index numbers and thin dividing rules, without card containers.
@@ -316,33 +361,78 @@ The hero should immediately communicate:
 * my AI/software-engineering positioning
 * where the user can explore next
 
-The initial composition should favour:
+The composition should favour:
 
 * strong typography
-* generous whitespace
+* asymmetry
+* intentional whitespace
 * clear CTA hierarchy
-* one memorable visual element
+* one memorable visual element connected to the content
 
-## 3D Hero
+The hero is NOT `text | object`. It is one composition:
 
-Use React Three Fiber for one restrained 3D moment.
+```text
+identity + message + interactive technical visual + motion
+```
 
-Initial concept:
+## Composition
 
-* one soft rounded floating form
-* brand orange `#D97757`
-* soft lighting
-* slow rotation
-* subtle floating motion
-* subtle mouse response
-* lightweight rendering
-* responsive sizing
-* pause when the browser tab is hidden
-* respect `prefers-reduced-motion`
+* The hero is a Night band.
+* The name is large and anchored low on the left.
+* The neural mesh fills the band behind and around the type rather than sitting in its own column.
+* The message and calls to action sit in a quiet zone: mesh elements that project into it fade out.
+* The name is set at a restrained display size (at most about 140px on desktop) so the message and visual carry equal weight.
+* On mobile the mesh has fewer nodes and the name sits low. The layout is recomposed, not shrunk.
 
-The 3D object should support the hero rather than dominate it.
+## Hero concept: Neural mesh
 
-A future iteration may replace the abstract form with an extruded version of the personal logo.
+A slowly drifting 3D network of nodes and connections in lilac and periwinkle. Bright pulses travel from node to node along the connections.
+
+### Meaning
+
+Nodes are components. Pulses are requests moving through the system.
+
+It shows the portfolio's core message, "I build intelligent software systems from the model layer to the production stack", as something alive: many parts connected into one working system. A one-line caption in the hero says this in words, so the meaning never depends on the visual alone.
+
+### Behaviour
+
+* Nodes drift slowly and continuously. Pulses walk the network, choosing a new connected edge at each node.
+* Nodes and connections near the cursor brighten.
+* The camera tilts slightly with the pointer, for depth.
+* On scroll, the camera pulls back, the mesh tilts away and fades, and the page thread begins below the hero (§9).
+
+### Rules
+
+* The mesh is the only 3D scene on the site.
+* It is decorative. The canvas is `aria-hidden` and all content is real HTML.
+* It pauses when the tab is hidden or the hero is off screen.
+* Mobile renders fewer nodes and pulses.
+* With `prefers-reduced-motion`, it renders a single still frame.
+* Node networks are a common "AI" image. The pulses, the caption and restrained styling keep it meaningful; do not add particles, glow or extra effects.
+
+### Alternative kept on file
+
+The prototype also tested a "signal grid" (a dot-matrix terrain with a scan line and cursor ripples). It can replace the mesh by swapping one component if the mesh ever feels generic.
+
+## Robot companion
+
+A small lilac robot icon follows the mouse cursor.
+
+* It trails the cursor with a spring, leans as it moves, and its eyes look in the direction of travel.
+* It blinks occasionally and smiles over interactive elements.
+* It never replaces the system cursor.
+* Mouse only: hidden on touch devices and with `prefers-reduced-motion`.
+* `aria-hidden`; it carries no information.
+
+It is the site's single piece of overt playfulness and a deliberate exception to "avoid excessive cursor-following" (§9). Do not add other cursor effects.
+
+## Supporting visual: Living System
+
+Architecture and project sections use a system diagram of real layers (model, retrieval, agents, API, data, cloud).
+
+Built layers render solid. Planned layers render as outlines labelled "planned", so the diagram stays truthful.
+
+Signal pulses travel along connections to show how parts relate.
 
 Do not turn the entire portfolio into a 3D website.
 
@@ -350,36 +440,108 @@ Do not turn the entire portfolio into a 3D website.
 
 # 9. Motion Direction
 
+The site should feel like an interactive digital experience, not a portfolio with random animations.
+
 Motion should feel:
 
-* slow
-* deliberate
-* subtle
-* smooth
-* premium
+* fluid
+* elegant
+* spatial
+* responsive
+* slightly playful
+* sophisticated
+* controlled
 
-Prefer:
+## Principles
 
-* opacity transitions
-* small translations
-* subtle scale changes
-* gentle hover states
-* controlled reveal animations
-* restrained parallax
-* meaningful micro-interactions
+These are drawn from the ChainGPT and Chillo Coffee references (`design/inspiration/websites/references.md`). Their animations are not copied.
 
-Avoid:
+* Objects feel alive and respond to the visitor.
+* Sections continue into each other instead of stacking.
+* Movement tells the story of the content.
+* Interaction has depth, not just scale.
 
-* constant movement
+## The four layers
+
+### 1. Ambient
+
+Only the hero neural mesh moves continuously, and slowly. Nothing else loops (except the Living System pulses while that diagram is in view).
+
+### 2. Scroll-linked: the thread
+
+One continuous line leaves the hero and runs down the page.
+
+* It draws itself as the visitor scrolls.
+* Each section heading lands on it.
+* Numbered-list rules extend from it as their rows enter the viewport.
+
+The thread is what connects sections. It replaces generic per-section fade-ins.
+
+### 3. Interaction
+
+* **List rows:** on hover or focus, the thread segment brightens, the text shifts slightly, and secondary metadata appears.
+* **Project cards:** layered depth. Inner layers move at different depths with the pointer, a few degrees of tilt at most. The title rises to reveal a technology line. No blanket `scale(1.02)`.
+* **Hero:** nodes near the cursor brighten and the camera tilts.
+* **Cursor:** the robot companion follows the mouse (§8). The graph paper lights up around it.
+
+### 4. State
+
+* **Headings:** rise out of a clipping mask, once per page view.
+* **Project open:** the card visually carries into its detail page.
+* **Route change:** a soft crossfade, with the thread continuing.
+
+## Navigation
+
+* One entrance fade on load.
+* The active-page marker slides between items.
+* The nav hides on scroll down and returns on scroll up.
+* Nothing more.
+
+## Motion tokens
+
+One easing curve and three durations, finalised in the prototype:
+
+| Token | Provisional value | Use |
+|---|---|---|
+| `ease-out` | `cubic-bezier(0.16, 1, 0.3, 1)` | Entrances, reveals, transitions |
+| `fast` | 180ms | Hover and focus |
+| `base` | 420ms | Reveals, the nav marker |
+| `slow` | 900ms | Heading masks, section handoffs |
+
+Interactive pointer motion (card tilt, camera tilt, the robot) uses damped springs.
+
+## Avoid
+
+* constant movement outside the hero
 * aggressive bouncing
-* excessive cursor-following
+* excessive cursor-following (the robot companion is the single deliberate exception)
 * animation on every element
-* distracting scroll effects
+* scroll-jacking
 * long loading animations
+* particles, glassmorphism and animated gradients
 
-Respect:
+## Reduced motion
 
-`prefers-reduced-motion`
+With `prefers-reduced-motion`:
+
+* no ambient or scroll-linked motion
+* the hero is a still frame
+* content appears instantly
+* hover feedback uses colour only
+
+The page must look complete with zero motion.
+
+## Implementation stack
+
+| Tool | Used for |
+|---|---|
+| CSS | Hover and focus states, colour transitions, reduced-motion fallbacks |
+| Framer Motion (`motion` package) | The nav marker, card tilt, the robot companion |
+| React `<ViewTransition>` | Route crossfades and the project card → detail morph (no extra library) |
+| React Three Fiber | The hero neural mesh only, loaded lazily on the client |
+| Drei | Performance helpers only (adaptive resolution under load) |
+
+Do not add other animation or smooth-scroll libraries.
 
 ---
 
@@ -487,7 +649,8 @@ Before considering a significant UI section complete, review it against:
 ### Brand
 
 * Does it feel like the same portfolio?
-* Is the orange used intentionally?
+* Is colour concentrated in the Night band and the mesh, with calm reading sections?
+* Does it feel confident rather than cute or overly pastel?
 * Does it feel AI × Software Engineering rather than generic AI?
 
 ### Anti-slop
@@ -557,6 +720,8 @@ Luna, Petman (`design/inspiration/pinterest/`)
 
 ### Palette: orange accent + muted indigo secondary
 
+**Status:** Superseded on 2026-10-08 by "Palette: lilac, purple, blue and deep indigo".
+
 **Decision:**
 `#D97757` stays the accent. A muted indigo is added as the secondary colour for colour-blocked sections. Exact values to be set in a swatch study.
 
@@ -575,7 +740,7 @@ Luna, Petman, Kamui
 Light mode is designed first. Dark mode is also supported.
 
 **Reason:**
-Suits the warm, expressive direction. Requires a darker orange for small text on light backgrounds.
+Suits the expressive direction. (The original note about a darker orange no longer applies since orange was removed.)
 
 **Inspired by:**
 Luna, Petman, numbered services list
@@ -597,14 +762,129 @@ Numbered services list (`design/inspiration/videos/numbered-services-list.png`),
 **Date:**
 2026-10-08
 
+### Palette: lilac, purple, blue and deep indigo
+
+**Decision:**
+Orange is removed. The palette is lilac, lavender, purple, blue and deep indigo on a cool neutral ground, with a deep indigo "Night" anchor. Provisional values are in §2.
+
+**Reason:**
+Chosen by Aishwarya after two study rounds. The aim is futuristic, feminine, technical and elegant, so the deep anchor keeps it confident rather than pastel.
+
+**Inspired by:**
+Palette B and Ultraviolet from the studies; Luna, Petman, Kamui
+
+**Date:**
+2026-10-08
+
+### Typography: Instrument Sans + Fraunces Italic + DM Mono
+
+**Decision:**
+Instrument Sans for body and strong headlines, Fraunces Italic for expressive moments, DM Mono for metadata.
+
+**Reason:**
+Aishwarya liked Type C (Fraunces) and asked for flowier, more vibrant type that stays readable. Mixing a strong sans with an expressive italic gives personality without a decorative script.
+
+**Inspired by:**
+Type studies, rounds 1 and 2
+
+**Date:**
+2026-10-08
+
+### Hero: The Loom
+
+**Status:** Superseded on 2026-10-08 by "Hero: Neural mesh".
+
+**Decision:**
+The hero visual is the Loom: flowing threads woven through a sparse lattice, referencing Ada Lovelace and the Jacquard loom. It replaces the soft orange form. Living System is the supporting visual for architecture and projects.
+
+**Reason:**
+The visual needed a real conceptual link to the portfolio. The Loom connects a woman at the origin of software with building systems from many parts, and its flow matches the typography. The circle had no meaning.
+
+**Inspired by:**
+ChainGPT notes (interactive 3D, depth), Chillo Coffee notes (continuity)
+
+**Date:**
+2026-10-08
+
+### Motion: four-layer system with a continuous page thread
+
+**Decision:**
+Motion is organised into ambient, scroll-linked, interaction and state layers. A single thread leaves the hero and connects all sections. Framer Motion and React Three Fiber only.
+
+**Reason:**
+Aishwarya wants an interactive experience where components move, not static blocks. The thread gives continuity without animating everything.
+
+**Inspired by:**
+ChainGPT and Chillo Coffee notes (`design/inspiration/websites/references.md`)
+
+**Date:**
+2026-10-08
+
+
+### Hero: Neural mesh
+
+**Decision:**
+The hero visual is a drifting 3D network of nodes with pulses travelling along connections, captioned "Nodes are components. Pulses are requests moving through the system." It replaces the Loom.
+
+**Reason:**
+Aishwarya asked for the threads to be replaced with something that moves and reads as more technical. The mesh was the prototype default when the design was approved; the signal grid is kept on file as an alternative.
+
+**Inspired by:**
+Hero prototype rounds 1 and 2; ChainGPT notes (interactive 3D, depth)
+
+**Date:**
+2026-10-08
+
+### Robot cursor companion
+
+**Decision:**
+A small robot icon follows the mouse cursor, mouse-only and hidden with reduced motion.
+
+**Reason:**
+Requested by Aishwarya. It adds personality ("she builds serious technology, but the experience has personality") in one contained place.
+
+**Inspired by:**
+Aishwarya's request; Chillo Coffee notes (playful but controlled interactions)
+
+**Date:**
+2026-10-08
+
+### Graph paper sections and network-graph card art
+
+**Decision:**
+Sections below the hero use a faint graph-paper grid that lights up around the cursor. Project cards use generated network graphs, not charts.
+
+**Reason:**
+Aishwarya asked for a graph-like pattern below the hero. Chart-like card art was rejected because it implies metrics that do not exist.
+
+**Inspired by:**
+Aishwarya's request; hero prototype round 2
+
+**Date:**
+2026-10-08
+
+### Name size reduced
+
+**Decision:**
+The hero name is set at most about 140px on desktop (previously about 210px).
+
+**Reason:**
+Aishwarya felt the name was too big.
+
+**Inspired by:**
+Hero prototype review
+
+**Date:**
+2026-10-08
+
 ---
 
 # 16. Future Design System
 
-The following will be defined after reference analysis:
+Already defined: font choices (§2), colour system (§2), motion tokens (§9), hero and 3D guidelines (§8), section surfaces and project card art (§7).
 
-* typography system
-* font choices
+Still to be defined:
+
 * type scale
 * spacing scale
 * container widths
@@ -614,11 +894,8 @@ The following will be defined after reference analysis:
 * colour system
 * button styles
 * card styles
-* navigation
 * project presentation
 * section patterns
-* motion tokens
 * responsive breakpoints
-* 3D guidelines
 
 Do not invent these values arbitrarily before the reference-analysis stage.
