@@ -7,7 +7,6 @@ const SVG_NS = "http://www.w3.org/2000/svg";
 /**
  * The page thread (DESIGN.md §9): one line runs down a left rail and draws itself
  * as the visitor scrolls. Every element marked `data-knot` lands on it.
- * Also hosts the graph-paper surface and its cursor glow (DESIGN.md §7).
  */
 export function Threaded({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const rootRef = useRef<HTMLDivElement>(null);
@@ -105,33 +104,16 @@ export function Threaded({ children, className = "" }: { children: React.ReactNo
     reduce.addEventListener("change", layout);
     layout();
 
-    // Graph-paper glow around the mouse
-    const onPointer = (e: PointerEvent) => {
-      if (e.pointerType !== "mouse" || reduce.matches) return;
-      const r = root.getBoundingClientRect();
-      root.style.setProperty("--mx", `${e.clientX - r.left}px`);
-      root.style.setProperty("--my", `${e.clientY - r.top}px`);
-      root.dataset.glow = "true";
-    };
-    const onPointerLeave = () => {
-      root.dataset.glow = "false";
-    };
-    root.addEventListener("pointermove", onPointer, { passive: true });
-    root.addEventListener("pointerleave", onPointerLeave);
-
     return () => {
       resizeObserver.disconnect();
       window.removeEventListener("scroll", onScroll);
       reduce.removeEventListener("change", layout);
-      root.removeEventListener("pointermove", onPointer);
-      root.removeEventListener("pointerleave", onPointerLeave);
       cancelAnimationFrame(frame);
     };
   }, []);
 
   return (
     <div ref={rootRef} className={`threaded ${className}`}>
-      <div className="grid-glow" aria-hidden="true" />
       <svg className="thread-svg" aria-hidden="true">
         <path ref={baseRef} className="base" />
         <path ref={drawRef} className="draw" />

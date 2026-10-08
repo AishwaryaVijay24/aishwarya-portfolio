@@ -33,7 +33,7 @@ export function Timeline({ entries, detailed = false }: { entries: TimelineEntry
     <ol ref={ref} className="relative mt-14 grid gap-12" aria-label="Timeline">
       <span className="absolute top-0 bottom-0 left-[19px] w-px bg-line md:left-1/2" aria-hidden="true" />
       <motion.span
-        className="timeline-line absolute top-0 bottom-0 left-[19px] w-[2px] -translate-x-[0.5px] bg-[var(--thread)] md:left-1/2"
+        className="timeline-line absolute top-0 bottom-0 left-[19px] w-[2px] -translate-x-[0.5px] bg-[var(--teal)] md:left-1/2"
         style={{ scaleY: reduceMotion ? 1 : scaleY }}
         aria-hidden="true"
       />
@@ -43,7 +43,7 @@ export function Timeline({ entries, detailed = false }: { entries: TimelineEntry
         return (
           <li key={e.key} className="relative grid grid-cols-[40px_1fr] gap-5 md:grid-cols-2 md:gap-16">
             <span
-              className="relative z-10 grid size-10 place-items-center rounded-full border border-line bg-surface text-violet md:absolute md:left-1/2 md:-translate-x-1/2"
+              className="relative z-10 grid size-10 place-items-center rounded-full border border-line bg-surface text-[var(--teal-ink)] md:absolute md:left-1/2 md:-translate-x-1/2"
               aria-hidden="true"
             >
               <Icon size={18} />
@@ -52,10 +52,10 @@ export function Timeline({ entries, detailed = false }: { entries: TimelineEntry
               from={right ? "right" : "left"}
               className={`grid gap-2 ${right ? "md:col-start-2" : "md:col-start-1 md:text-right"} ${detailed ? "" : "md:max-w-[440px]"} ${right ? "" : "md:justify-self-end"}`}
             >
-              <span className={`label flex items-center gap-2 text-[11px] text-violet ${right ? "" : "md:justify-end"}`}>
+              <span className={`label flex items-center gap-2 text-[11px] text-[var(--teal-ink)] ${right ? "" : "md:justify-end"}`}>
                 {e.kind === "work" ? "Work" : "Education"} · {e.period}
               </span>
-              <h3 className="condensed text-[clamp(22px,2.4vw,30px)] leading-[1.05] font-semibold tracking-[-0.01em]">{e.title}</h3>
+              <h3 className="type-wide text-[clamp(22px,2.4vw,30px)] leading-[1.1]">{e.title}</h3>
               <p className={`flex flex-wrap items-center gap-x-3 gap-y-1 text-muted ${right ? "" : "md:justify-end"}`}>
                 <span className="font-medium text-ink">{e.org}</span>
                 {e.location && (
@@ -73,7 +73,7 @@ export function Timeline({ entries, detailed = false }: { entries: TimelineEntry
                 </ul>
               )}
               {!detailed && e.points && e.points[0] && <p className="max-w-[52ch] text-[15px] text-muted">{e.points[0]}</p>}
-              {detailed && e.technologies && <TechList items={e.technologies} className={`mt-2 ${right ? "" : "md:justify-end"}`} />}
+              {detailed && e.technologies && <TechList items={e.technologies} variant="chips" className={`mt-2 ${right ? "" : "md:justify-end"}`} />}
             </Reveal>
           </li>
         );

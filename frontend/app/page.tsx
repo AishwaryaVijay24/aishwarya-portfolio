@@ -6,6 +6,7 @@ import { RoadmapStepper } from "@/components/architecture/RoadmapStepper";
 import { SystemBand } from "@/components/architecture/SystemBand";
 import { Timeline } from "@/components/experience/Timeline";
 import { Hero } from "@/components/hero/Hero";
+import { Band } from "@/components/layout/Band";
 import { Threaded } from "@/components/layout/Threaded";
 import { Magnetic } from "@/components/motion/Magnetic";
 import { Words } from "@/components/motion/Words";
@@ -75,7 +76,8 @@ export default function HomePage() {
     <>
       <Hero />
       <Threaded>
-        <Section labelledBy="work-heading">
+        <Band surface="grid">
+        <Section labelledBy="work-heading" last>
           <SectionHeading
             index="01"
             label="Work"
@@ -96,12 +98,19 @@ export default function HomePage() {
             </Link>
           </Reveal>
         </Section>
+        </Band>
 
-        <Section labelledBy="journey-heading">
+        <Band surface="tint" className="overflow-hidden">
+        <span className="outline-type absolute top-16 right-[var(--rail)] hidden text-[clamp(120px,16vw,240px)] md:block" aria-hidden="true">
+          2021—26
+        </span>
+        <Section labelledBy="journey-heading" last>
           <SectionHeading
             index="02"
             label="Journey"
             id="journey-heading"
+            font="wide"
+            tone="teal"
             title={
               <>
                 Where I&apos;ve <em className="display-word">built</em> and studied
@@ -117,8 +126,9 @@ export default function HomePage() {
             </Link>
           </Reveal>
         </Section>
+        </Band>
 
-        <SystemBand labelledBy="system-heading">
+        <SystemBand labelledBy="system-heading" flush>
           <div className="grid gap-[clamp(48px,6vw,80px)]">
             <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
               <div>
@@ -143,11 +153,14 @@ export default function HomePage() {
           </div>
         </SystemBand>
 
-        <Section labelledBy="research-heading">
+        <Band surface="paper">
+        <Section labelledBy="research-heading" last>
           <SectionHeading
             index="04"
             label="Research"
             id="research-heading"
+            font="serif"
+            tone="sky"
             title={
               <>
                 Research, <em className="display-word">published</em>
@@ -160,12 +173,16 @@ export default function HomePage() {
             </Suspense>
           </div>
         </Section>
+        </Band>
 
+        <Band surface="dots">
         <Section labelledBy="lab-heading" last>
           <SectionHeading
             index="05"
             label="AI Lab"
             id="lab-heading"
+            font="mono"
+            tone="orchid"
             title={
               <>
                 Talk to my <em className="display-word">AI</em>
@@ -197,6 +214,7 @@ export default function HomePage() {
             </Reveal>
           </div>
         </Section>
+        </Band>
       </Threaded>
     </>
   );

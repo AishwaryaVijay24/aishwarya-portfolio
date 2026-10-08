@@ -7,7 +7,7 @@ import { site } from "@/lib/config/site";
 /** Rotating circular label: a slow technical motif. Decorative only. */
 function Seal({ text }: { text: string }) {
   return (
-    <svg viewBox="0 0 200 200" className="spin-slow size-[150px] text-violet md:size-[190px]" aria-hidden="true">
+    <svg viewBox="0 0 200 200" className="spin-slow size-[150px] text-[var(--sky-ink)] md:size-[190px]" aria-hidden="true">
       <defs>
         <path id="seal-path" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0" />
       </defs>
@@ -26,12 +26,12 @@ export function PublicationFeature({ publication }: { publication: Publication }
     <div className="relative grid gap-10 lg:grid-cols-[1fr_auto] lg:items-center">
       <div className="grid gap-6">
         <Reveal from="left" className="flex items-center gap-3">
-          <span className="grid size-10 place-items-center rounded-full bg-violet text-on-violet" aria-hidden="true">
+          <span className="grid size-10 place-items-center rounded-full bg-[var(--sky-ink)] text-surface" aria-hidden="true">
             <FileText size={18} />
           </span>
-          <span className="label text-violet">Published research</span>
+          <span className="label text-[var(--sky-ink)]">Published research</span>
         </Reveal>
-        <Reveal as="p" className="condensed max-w-[22ch] text-[clamp(30px,4.2vw,56px)] leading-[1.02] font-semibold tracking-[-0.025em] text-balance">
+        <Reveal as="p" className="type-serif max-w-[24ch] text-[clamp(30px,4.2vw,56px)] leading-[1.08] text-balance">
           <Words>{publication.title}</Words>
         </Reveal>
         {publication.authors.length > 0 && (

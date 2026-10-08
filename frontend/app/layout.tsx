@@ -12,7 +12,7 @@ import "./globals.css";
 const instrument = Instrument_Sans({ subsets: ["latin"], axes: ["wdth"], variable: "--font-instrument" });
 const fraunces = Fraunces({
   subsets: ["latin"],
-  style: "italic",
+  style: ["normal", "italic"],
   axes: ["SOFT", "WONK", "opsz"],
   variable: "--font-fraunces",
 });

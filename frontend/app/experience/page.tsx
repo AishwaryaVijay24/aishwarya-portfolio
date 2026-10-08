@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { Timeline } from "@/components/experience/Timeline";
+import { Band } from "@/components/layout/Band";
 import { PageHero } from "@/components/layout/PageHero";
 import { Threaded } from "@/components/layout/Threaded";
 import { Section } from "@/components/ui/Section";
@@ -34,6 +35,12 @@ export default function ExperiencePage() {
       <PageHero
         eyebrow="Experience"
         seed={23}
+        font="wide"
+        art={
+          <span className="outline-type absolute right-0 bottom-4 block text-[clamp(80px,11vw,170px)] whitespace-nowrap [-webkit-text-stroke-color:color-mix(in_srgb,var(--teal)_35%,transparent)]">
+            2021—26
+          </span>
+        }
         title={
           <>
             Where I&apos;ve <em className="display-word">worked</em> and studied
@@ -41,18 +48,20 @@ export default function ExperiencePage() {
         }
       />
       <Threaded>
+        <Band surface="tint">
         <Section labelledBy="experience-heading">
-          <SectionHeading index="01" label="Work" id="experience-heading" title="Experience" />
+          <SectionHeading index="01" label="Work" id="experience-heading" title="Experience" font="wide" tone="teal" />
           <Suspense fallback={<RowsSkeleton rows={2} />}>
             <Work />
           </Suspense>
         </Section>
         <Section labelledBy="education-heading" last>
-          <SectionHeading index="02" label="Study" id="education-heading" title="Education" />
+          <SectionHeading index="02" label="Study" id="education-heading" title="Education" font="wide" tone="teal" />
           <Suspense fallback={<RowsSkeleton rows={2} />}>
             <Study />
           </Suspense>
         </Section>
+        </Band>
       </Threaded>
     </>
   );

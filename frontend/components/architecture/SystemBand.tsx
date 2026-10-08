@@ -7,7 +7,7 @@ import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
  * Full-width Night moment inside the threaded body. It grows from an inset panel to the
  * full viewport width as it scrolls into view, so the page "opens up" at this section.
  */
-export function SystemBand({ children, labelledBy }: { children: React.ReactNode; labelledBy: string }) {
+export function SystemBand({ children, labelledBy, flush = false }: { children: React.ReactNode; labelledBy: string; flush?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "start 35%"] });
@@ -20,7 +20,7 @@ export function SystemBand({ children, labelledBy }: { children: React.ReactNode
     <motion.section
       ref={ref}
       aria-labelledby={labelledBy}
-      className="on-night relative mt-[clamp(80px,12vw,150px)] -mr-[var(--rail)] -ml-[calc(var(--rail)+var(--rail-gap))] overflow-hidden bg-night text-on-night"
+      className={`on-night relative ${flush ? "" : "mt-[clamp(80px,12vw,150px)]"} -mr-[var(--rail)] -ml-[calc(var(--rail)+var(--rail-gap))] overflow-hidden bg-night text-on-night`}
       style={reduceMotion ? undefined : { clipPath }}
     >
       <div className="pointer-events-none absolute -top-40 -right-40 size-[520px] rounded-full border border-dashed border-on-night/10 spin-slow" aria-hidden="true" />

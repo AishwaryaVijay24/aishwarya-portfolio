@@ -6,7 +6,7 @@ from typing import Annotated
 
 from pydantic import BaseModel, BeforeValidator, ConfigDict, Field
 
-from app.schemas.portfolio import ProjectStatus, ResearchStatus
+from app.schemas.portfolio import ProjectStatus, ProjectVisual, ResearchStatus
 
 _MONTH = re.compile(r"^\d{4}-\d{2}$")
 
@@ -40,6 +40,7 @@ class SeedProject(Strict):
     repository_url: str | None = None
     demo_url: str | None = None
     paper_url: str | None = None
+    visual: ProjectVisual = "network"
     featured: bool = False
 
 

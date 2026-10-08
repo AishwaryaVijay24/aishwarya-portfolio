@@ -11,6 +11,7 @@ FRONTEND_PROJECT_FIELDS = {
     "repository_url",
     "demo_url",
     "paper_url",
+    "visual",
     "featured",
 }
 

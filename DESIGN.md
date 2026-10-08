@@ -138,6 +138,20 @@ Approved after the hero prototype. Every pair below passes WCAG AA (4.5 for text
 
 Measured contrast (light / dark): ink on ground 16.1 / 16.2, muted on ground 6.5 / 7.7, violet on ground 6.2 / 8.6, on-night on night 15.9 / 17.1, night-muted on night 7.9 / 8.5, lilac on night 8.7 / 11.2, periwinkle on night 6.8 / 8.8, primary button label 7.0 / 8.6.
 
+### Project accents
+
+Each project visual has its own accent so projects do not look alike. Vivid shades are for artwork on Night; "ink" shades are for text on light surfaces (all pass WCAG AA).
+
+| Accent | Vivid | Ink (light / dark) | Used for |
+|---|---|---|---|
+| orchid | `#E879C9` | `#A3268B` / `#F0A6DD` | Agent systems; AI Lab; About |
+| sky | `#5CC8FF` | `#0B6FA4` / `#8FD8FF` | Retrieval pipelines; Research |
+| teal | `#2DD4BF` | `#0F766E` / `#5EEAD4` | Services; Experience |
+| mint | `#6EE7B7` | `#047857` / `#6EE7B7` | Model fine-tuning |
+| leaf | `#4ADE80` | `#166534` / `#86EFAC` | Sustainability apps |
+
+Lilac, periwinkle and violet remain the core identity; accents add colour within sections, never as full-page fills.
+
 ## Colour mode
 
 Both light and dark mode are supported.
@@ -155,6 +169,17 @@ In light mode the hero is still a Night band. That is colour blocking, not dark 
 | Mono | **DM Mono** | Metadata labels, routes, technical captions |
 
 The personality comes from the interplay: a strong sans headline with one word set in Fraunces Italic, for example "AI × *Software* Engineering".
+
+### Section voices
+
+Sections use different heading voices so they do not read alike (SectionHeading `font`):
+
+| Voice | Style | Sections |
+|---|---|---|
+| condensed | Instrument Sans bold, 80% width | Projects, Contact |
+| wide | Instrument Sans light, full width | Experience, Journey, About profile |
+| serif | Fraunces roman | Research, publications, project overviews |
+| mono | DM Mono | AI Lab, project stacks |
 
 Fraunces is for moments, never for running text.
 
@@ -353,17 +378,44 @@ Use icons only where they add meaning: link types (GitHub, LinkedIn, email, pape
 
 Icons are decorative (`aria-hidden`) unless they are the only label.
 
-## Section surfaces: graph paper
+## Section surfaces
 
-Reading sections below the hero sit on a faint graph-paper grid (minor and major lines from the ink colour at very low opacity).
+Each section band picks one surface (Band `surface`), and neighbouring sections never share one:
 
-Around the mouse cursor, a small area of the grid lights up in violet. No spotlight on touch devices or with reduced motion.
+| Surface | Look | Sections |
+|---|---|---|
+| grid | Faint graph paper; lights up around the cursor | Project sections only |
+| tint | Translucent lavender, large outlined years | Experience, Journey, project highlights |
+| paper | Faint ruled lines | Research |
+| dots | Dot matrix | AI Lab |
+| wash | Soft sky-to-orchid wash | About |
+| night | Full-width Night band | System |
 
-## Project card art
+The cursor glow belongs only to the grid surface; no other section has a background interaction.
 
-Project cards use a small generated network graph (nodes, connections and one highlighted path).
+## Project visuals
+
+Every project has its own artwork (`visual` field), drawn from what it actually does:
+
+| Visual | Depicts |
+|---|---|
+| agents | A supervisor coordinating agents, tools around it, a human-approval gate |
+| pipeline | Retrieval stages narrowing candidates to a verdict |
+| services | Microservices over a queue and a database, with a dashboard |
+| vectors | Embedded chunks in a vector space and a query's nearest neighbours |
+| lowrank | Frozen weights plus a low-rank adapter |
+| app | An abstract app screen (no invented data) |
+| network | Fallback network graph |
+
+Labels inside visuals use only facts from the project's verified description.
 
 Do not use chart-like art (lines that rise and fall) on project cards: it reads as performance data, and the portfolio never shows invented metrics.
+
+## Technology logos
+
+Technologies show their logo from Simple Icons (CC0) in brand colour. Near-black brand colours use the text colour so they stay visible in dark mode.
+
+Only exact brands, or the maker of a tool (e.g. Hugging Face for PEFT and TRL), get a logo. Concepts such as RAG or Microservices get a neutral glyph, never a borrowed logo.
 
 ## Numbered lists
 
@@ -961,6 +1013,21 @@ Aishwarya noticed the cursor interaction had disappeared and wanted it to react 
 
 **Inspired by:**
 Aishwarya's request
+
+**Date:**
+2026-10-08
+
+
+### Less repetition: per-project visuals, accents, voices and surfaces
+
+**Decision:**
+Replace the shared network graph with per-project visuals and accent colours; give sections different heading voices and background surfaces; limit graph paper and its glow to project sections; add technology logos.
+
+**Reason:**
+Aishwarya found the graph visual, the type treatment and the highlighted grid overused, and the Projects, Experience, Research and About sections too similar. She also asked for more colour and tech logos.
+
+**Inspired by:**
+Aishwarya's review of the redesigned site
 
 **Date:**
 2026-10-08

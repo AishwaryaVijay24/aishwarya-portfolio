@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import { Band } from "@/components/layout/Band";
 import { PageHero } from "@/components/layout/PageHero";
 import { Threaded } from "@/components/layout/Threaded";
 import { ProjectIndex } from "@/components/projects/ProjectIndex";
@@ -33,12 +34,14 @@ export default function ProjectsPage() {
         lede="Every project is labelled honestly: experiments, prototypes and in-progress work say so."
       />
       <Threaded>
+        <Band surface="grid">
         <Section labelledBy="projects-heading" last>
           <SectionHeading index="01" label="Index" id="projects-heading" title="All projects" />
           <Suspense fallback={<RowsSkeleton rows={6} />}>
             <AllProjects />
           </Suspense>
         </Section>
+        </Band>
       </Threaded>
     </>
   );

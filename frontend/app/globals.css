@@ -20,6 +20,18 @@
   --peri: #7e95ff;
   --thread: #8b74e8;
 
+  /* Project accents (DESIGN.md §2): vivid on Night, "ink" shades for text on light surfaces. */
+  --orchid: #e879c9;
+  --orchid-ink: #a3268b;
+  --sky: #5cc8ff;
+  --sky-ink: #0b6fa4;
+  --teal: #2dd4bf;
+  --teal-ink: #0f766e;
+  --mint: #6ee7b7;
+  --mint-ink: #047857;
+  --leaf: #4ade80;
+  --leaf-ink: #166534;
+
   --ease: cubic-bezier(0.16, 1, 0.3, 1);
   --fast: 180ms;
   --base: 420ms;
@@ -43,6 +55,11 @@
     --lilac: #c8b8ff;
     --peri: #93a8ff;
     --thread: #a893ff;
+    --orchid-ink: #f0a6dd;
+    --sky-ink: #8fd8ff;
+    --teal-ink: #5eead4;
+    --mint-ink: #6ee7b7;
+    --leaf-ink: #86efac;
     color-scheme: dark;
   }
 }
@@ -58,6 +75,11 @@
   --lilac: #c8b8ff;
   --peri: #93a8ff;
   --thread: #a893ff;
+  --orchid-ink: #f0a6dd;
+  --sky-ink: #8fd8ff;
+  --teal-ink: #5eead4;
+  --mint-ink: #6ee7b7;
+  --leaf-ink: #86efac;
   color-scheme: dark;
 }
 
@@ -74,6 +96,11 @@
   --color-night-muted: var(--night-muted);
   --color-lilac: var(--lilac);
   --color-peri: var(--peri);
+  --color-orchid: var(--orchid);
+  --color-sky: var(--sky);
+  --color-teal: var(--teal);
+  --color-mint: var(--mint);
+  --color-leaf: var(--leaf);
 
   --font-sans: var(--font-instrument), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
@@ -233,6 +260,18 @@ body {
   overflow-x: clip;
   padding-left: calc(var(--rail) + var(--rail-gap));
   padding-right: var(--rail);
+}
+
+/* ── Section surfaces (DESIGN.md §7): each band picks one, so sections differ ── */
+.band {
+  position: relative;
+  margin-left: calc(-1 * (var(--rail) + var(--rail-gap)));
+  margin-right: calc(-1 * var(--rail));
+  padding-left: calc(var(--rail) + var(--rail-gap));
+  padding-right: var(--rail);
+}
+/* Graph paper: project sections only, with the cursor glow. */
+.surface-grid {
   --g-minor: color-mix(in srgb, var(--ink) 4.5%, transparent);
   --g-major: color-mix(in srgb, var(--ink) 8%, transparent);
   --g-glow: color-mix(in srgb, var(--violet) 45%, transparent);
@@ -240,6 +279,93 @@ body {
     linear-gradient(90deg, var(--g-major) 1px, transparent 1px), linear-gradient(var(--g-minor) 1px, transparent 1px),
     linear-gradient(90deg, var(--g-minor) 1px, transparent 1px);
   background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+}
+/* Soft lavender tint: experience and journey. Translucent so the page thread shows through. */
+.surface-tint {
+  background: color-mix(in srgb, var(--violet) 6%, transparent);
+}
+/* Ruled paper: research. */
+.surface-paper {
+  background-image: linear-gradient(transparent 31px, color-mix(in srgb, var(--sky-ink) 10%, transparent) 32px);
+  background-size: 100% 32px;
+}
+/* Dot matrix: the AI Lab. */
+.surface-dots {
+  background-image: radial-gradient(color-mix(in srgb, var(--ink) 16%, transparent) 1px, transparent 1.4px);
+  background-size: 18px 18px;
+}
+/* Colour wash: about. */
+.surface-wash {
+  background: linear-gradient(160deg, color-mix(in srgb, var(--sky) 13%, transparent), color-mix(in srgb, var(--orchid) 9%, transparent) 55%, transparent 90%);
+}
+/* Oversized outlined text used as a decorative layer behind a band. */
+.outline-type {
+  color: transparent;
+  -webkit-text-stroke: 1.5px color-mix(in srgb, var(--violet) 18%, transparent);
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-stretch: 75%;
+  line-height: 0.8;
+  letter-spacing: -0.04em;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Typography variants for section headings (SectionHeading font prop). */
+.type-serif {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 380;
+  font-variation-settings: "SOFT" 30, "WONK" 0, "opsz" 144;
+  letter-spacing: -0.02em;
+}
+.type-wide {
+  font-family: var(--font-sans);
+  font-stretch: 100%;
+  font-weight: 350;
+  letter-spacing: -0.035em;
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+/* Project visuals: slow, meaningful motion only (reduced motion stops all of it). */
+.pv-orbit {
+  transform-box: view-box;
+  transform-origin: 200px 150px;
+  animation: spin 60s linear infinite;
+}
+.pv-flow {
+  animation: pv-flow 3.6s var(--ease) infinite;
+}
+@keyframes pv-flow {
+  0% {
+    transform: translateX(0);
+    opacity: 0;
+  }
+  12% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--dx, 300px));
+    opacity: 0;
+  }
+}
+.pv-pulse {
+  animation: pv-pulse 2.8s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+@keyframes pv-pulse {
+  50% {
+    transform: scale(1.35);
+    opacity: 0.55;
+  }
 }
 .grid-glow {
   position: absolute;
@@ -253,7 +379,7 @@ body {
   -webkit-mask-image: radial-gradient(200px circle at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 75%);
   mask-image: radial-gradient(200px circle at var(--mx, -999px) var(--my, -999px), #000 0%, transparent 75%);
 }
-.threaded[data-glow="true"] .grid-glow {
+.band[data-glow="true"] .grid-glow {
   opacity: 1;
 }
 .thread-svg {
@@ -287,7 +413,7 @@ body {
 }
 .threaded > section,
 .threaded > header,
-.threaded > div:not(.grid-glow) {
+.threaded > div {
   position: relative;
 }
 

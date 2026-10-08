@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Suspense } from "react";
 
+import { Band } from "@/components/layout/Band";
 import { PageHero } from "@/components/layout/PageHero";
 import { Threaded } from "@/components/layout/Threaded";
 import { PublicationFeature } from "@/components/research/PublicationFeature";
@@ -33,16 +34,16 @@ async function ResearchEntries() {
             className={`grid gap-6 border-t border-line pt-10 md:grid-cols-[minmax(0,1fr)_minmax(0,1.6fr)] md:gap-12 ${flip ? "md:[&>*:first-child]:order-2" : ""}`}
           >
             <div className="grid content-start gap-4">
-              <span className="grid size-11 place-items-center rounded-full border border-line text-violet" aria-hidden="true">
+              <span className="grid size-11 place-items-center rounded-full border border-line text-[var(--sky-ink)]" aria-hidden="true">
                 <FlaskConical size={20} />
               </span>
-              <span className="display-word text-[56px] leading-none text-violet">{String(i + 1).padStart(2, "0")}</span>
+              <span className="type-serif text-[64px] leading-none text-[var(--sky-ink)]">{String(i + 1).padStart(2, "0")}</span>
               <span className="justify-self-start">
                 <StatusBadge label={humanize(r.status)} tone={r.status === "published" ? "current" : "neutral"} />
               </span>
             </div>
             <div className="grid content-start gap-4">
-              <h3 className="condensed text-[clamp(26px,3vw,38px)] leading-[1.05] font-semibold tracking-[-0.02em] text-balance">{r.title}</h3>
+              <h3 className="type-serif text-[clamp(26px,3vw,38px)] leading-[1.12] text-balance">{r.title}</h3>
               {r.summary && <p className="max-w-[62ch] text-muted">{r.summary}</p>}
               {r.url && (
                 <a href={r.url} target="_blank" rel="noreferrer" className="btn btn-outline justify-self-start">
@@ -76,6 +77,12 @@ export default function ResearchPage() {
       <PageHero
         eyebrow="Research"
         seed={37}
+        font="serif"
+        art={
+          <span className="type-serif absolute right-8 bottom-0 block translate-y-[38%] text-[clamp(200px,26vw,380px)] leading-none text-[color-mix(in_srgb,var(--sky)_22%,transparent)]">
+            &ldquo;
+          </span>
+        }
         title={
           <>
             Questions I&apos;m <em className="display-word">exploring</em>
@@ -84,18 +91,20 @@ export default function ResearchPage() {
         lede="Vision-language model robustness, retrieval and digital fraud response."
       />
       <Threaded>
+        <Band surface="paper">
         <Section labelledBy="publications-heading">
-          <SectionHeading index="01" label="Writing" id="publications-heading" title="Publications" />
+          <SectionHeading index="01" label="Writing" id="publications-heading" title="Publications" font="serif" tone="sky" />
           <Suspense fallback={<RowsSkeleton rows={2} />}>
             <Publications />
           </Suspense>
         </Section>
         <Section labelledBy="research-heading" last>
-          <SectionHeading index="02" label="Research" id="research-heading" title="Research work" />
+          <SectionHeading index="02" label="Research" id="research-heading" title="Research work" font="serif" tone="sky" />
           <Suspense fallback={<RowsSkeleton />}>
             <ResearchEntries />
           </Suspense>
         </Section>
+        </Band>
       </Threaded>
     </>
   );

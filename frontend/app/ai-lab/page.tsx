@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
+import { Band } from "@/components/layout/Band";
 import { PageHero } from "@/components/layout/PageHero";
 import { Threaded } from "@/components/layout/Threaded";
 import { Section } from "@/components/ui/Section";
@@ -28,6 +29,7 @@ export default function AiLabPage() {
       <PageHero
         eyebrow="AI Lab"
         seed={53}
+        font="mono"
         title={
           <>
             Talk to my <em className="display-word">AI</em>
@@ -36,11 +38,14 @@ export default function AiLabPage() {
         lede="The Portfolio Agent is coming in a future phase. This page explains what it will do."
       />
       <Threaded>
+        <Band surface="dots">
         <Section labelledBy="agent-heading">
           <SectionHeading
             index="01"
             label="Portfolio Agent"
             id="agent-heading"
+            font="mono"
+            tone="orchid"
             title={
               <>
                 Grounded, read-only, <em className="display-word">honest</em>
@@ -65,7 +70,7 @@ export default function AiLabPage() {
           </div>
         </Section>
         <Section labelledBy="tools-heading" last>
-          <SectionHeading index="02" label="Tools" id="tools-heading" title="Planned tools" lede="Each tool only reads data. None of them are built yet." />
+          <SectionHeading index="02" label="Tools" id="tools-heading" title="Planned tools" font="mono" tone="orchid" lede="Each tool only reads data. None of them are built yet." />
           <dl className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {plannedTools.map((tool, i) => (
               <Reveal key={tool.name} from="up" delay={i * 80} className="grid gap-3 rounded-[10px] border border-dashed border-line p-5">
@@ -81,6 +86,7 @@ export default function AiLabPage() {
             Explore projects meanwhile <span className="arrow" aria-hidden="true">→</span>
           </Link>
         </Section>
+        </Band>
       </Threaded>
     </>
   );

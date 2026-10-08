@@ -6,6 +6,7 @@ from typing import Literal
 from pydantic import BaseModel, ConfigDict
 
 ProjectStatus = Literal["planned", "prototype", "experimental", "in_progress", "active", "completed"]
+ProjectVisual = Literal["agents", "pipeline", "services", "vectors", "lowrank", "app", "network"]
 ResearchStatus = Literal["planned", "in_progress", "completed", "published"]
 
 
@@ -26,6 +27,7 @@ class ProjectOut(ORMModel):
     repository_url: str | None
     demo_url: str | None
     paper_url: str | None
+    visual: ProjectVisual
     featured: bool
 
 

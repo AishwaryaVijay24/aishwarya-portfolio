@@ -13,6 +13,7 @@ export const project = (overrides: Partial<Project> = {}): Project => ({
   repository_url: null,
   demo_url: null,
   paper_url: null,
+  visual: "network",
   featured: true,
   ...overrides,
 });

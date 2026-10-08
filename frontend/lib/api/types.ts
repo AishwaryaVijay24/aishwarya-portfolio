@@ -7,6 +7,7 @@
  */
 
 export type ProjectStatus = "planned" | "prototype" | "experimental" | "in_progress" | "active" | "completed";
+export type ProjectVisual = "agents" | "pipeline" | "services" | "vectors" | "lowrank" | "app" | "network";
 
 export type Project = {
   slug: string;
@@ -21,6 +22,7 @@ export type Project = {
   repository_url: string | null;
   demo_url: string | null;
   paper_url: string | null;
+  visual: ProjectVisual;
   featured: boolean;
 };
 
@@ -77,6 +79,7 @@ const isStringOrNull = (v: unknown): v is string | null => v === null || typeof 
 const isStringArray = (v: unknown): v is string[] => Array.isArray(v) && v.every(isString);
 
 const PROJECT_STATUSES: readonly string[] = ["planned", "prototype", "experimental", "in_progress", "active", "completed"];
+const PROJECT_VISUALS: readonly string[] = ["agents", "pipeline", "services", "vectors", "lowrank", "app", "network"];
 
 export const isProject: Guard<Project> = (v): v is Project =>
   isObject(v) &&
@@ -93,6 +96,8 @@ export const isProject: Guard<Project> = (v): v is Project =>
   isStringOrNull(v.repository_url) &&
   isStringOrNull(v.demo_url) &&
   isStringOrNull(v.paper_url) &&
+  isString(v.visual) &&
+  PROJECT_VISUALS.includes(v.visual) &&
   typeof v.featured === "boolean";
 
 export const isExperience: Guard<Experience> = (v): v is Experience =>

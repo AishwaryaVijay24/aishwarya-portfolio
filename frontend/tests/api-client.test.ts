@@ -19,6 +19,7 @@ const project: Project = {
   repository_url: null,
   demo_url: null,
   paper_url: null,
+  visual: "network",
   featured: true,
 };
 

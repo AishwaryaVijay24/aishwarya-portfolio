@@ -25,7 +25,8 @@
         "99% schema adherence across 150+ simulated scenarios (LangSmith)",
         "Self-correction step lifted first-pass approval from 65% to 88%"
       ],
-      "paper_url": null
+      "paper_url": null,
+      "visual": "agents"
     },
     {
       "slug": "sciclaim",
@@ -53,7 +54,8 @@
       "repository_url": "https://github.com/AishwaryaVijay24/SciClaim-Retrieval",
       "demo_url": null,
       "paper_url": null,
-      "featured": true
+      "featured": true,
+      "visual": "pipeline"
     },
     {
       "slug": "cyberresponse",
@@ -78,7 +80,8 @@
         "Real-time case tracking and an operator admin dashboard",
         "Published at IEEE ICoECIT 2026"
       ],
-      "paper_url": "https://doi.org/10.1109/ICoECIT68303.2026.11497960"
+      "paper_url": "https://doi.org/10.1109/ICoECIT68303.2026.11497960",
+      "visual": "services"
     },
     {
       "slug": "qwen-rag-knowledge-assistant",
@@ -105,7 +108,8 @@
       "repository_url": "https://github.com/AishwaryaVijay24/qwen-rag-knowledge-assistant",
       "demo_url": null,
       "paper_url": null,
-      "featured": false
+      "featured": false,
+      "visual": "vectors"
     },
     {
       "slug": "ecoeats",
@@ -130,7 +134,8 @@
       "repository_url": "https://github.com/AishwaryaVijay24/EcoEatsFrontend",
       "demo_url": null,
       "paper_url": null,
-      "featured": false
+      "featured": false,
+      "visual": "app"
     },
     {
       "slug": "ml-tutor-llm-lora",
@@ -155,7 +160,8 @@
       "repository_url": "https://github.com/AishwaryaVijay24/ml-tutor-llm-lora",
       "demo_url": null,
       "paper_url": null,
-      "featured": false
+      "featured": false,
+      "visual": "lowrank"
     }
   ],
   "experience": [

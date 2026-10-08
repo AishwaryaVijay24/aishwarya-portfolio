@@ -5,7 +5,10 @@ import { cache, ViewTransition } from "react";
 
 import { Threaded } from "@/components/layout/Threaded";
 import { Words } from "@/components/motion/Words";
-import { NetworkArt, seedFrom } from "@/components/projects/NetworkArt";
+import { Band } from "@/components/layout/Band";
+import { seedFrom } from "@/components/projects/NetworkArt";
+import { ProjectVisual } from "@/components/projects/ProjectVisual";
+import { accentStyle } from "@/lib/visuals";
 import { ProjectFacts, ProjectLinks } from "@/components/projects/ProjectMeta";
 import { TechList } from "@/components/technology/TechList";
 import { CircleCheck } from "@/components/ui/icons";
@@ -53,6 +56,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
     <>
       <header
         data-night-band
+        style={accentStyle(project.visual)}
         className="night-band on-night grid gap-10 px-[var(--rail)] pt-[calc(env(safe-area-inset-top,0px)+112px)] pb-16 lg:grid-cols-[1.1fr_1fr] lg:items-end"
       >
         <div className="grid gap-6">
@@ -63,7 +67,7 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
             <Words>
               <>
                 {lead}
-                <em className="display-word text-lilac">{last}</em>
+                <em className="display-word text-[var(--accent)]">{last}</em>
               </>
             </Words>
           </Reveal>
@@ -72,17 +76,19 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         </div>
         <ViewTransition name={`project-${project.slug}`} share="morph" default="none">
           <div className="relative aspect-[16/11] overflow-hidden rounded-[10px] bg-night ring-1 ring-on-night/10">
-            <div className="absolute -inset-[6%]">
-              <NetworkArt seed={seedFrom(project.slug)} />
+            <div className="absolute inset-[6%]">
+              <ProjectVisual kind={project.visual} seed={seedFrom(project.slug)} />
             </div>
           </div>
         </ViewTransition>
       </header>
 
       <Threaded>
+        <div style={accentStyle(project.visual)}>
         {project.highlights.length > 0 && (
-          <Section labelledBy="highlights-heading">
-            <SectionHeading index={next()} label="Highlights" id="highlights-heading" title="What it does" />
+          <Band surface="tint">
+          <Section labelledBy="highlights-heading" last>
+            <SectionHeading index={next()} label="Highlights" id="highlights-heading" title="What it does" font="wide" />
             <ul className="mt-10 grid gap-4 md:grid-cols-2">
               {project.highlights.map((h, i) => (
                 <Reveal
@@ -92,16 +98,17 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
                   delay={i * 90}
                   className="flex gap-3 rounded-[10px] border border-line bg-surface/70 p-5 text-[15px] leading-snug"
                 >
-                  <CircleCheck size={20} className="mt-px shrink-0 text-violet" aria-hidden="true" />
+                  <CircleCheck size={20} className="mt-px shrink-0 text-[var(--accent-ink)]" aria-hidden="true" />
                   <span>{h}</span>
                 </Reveal>
               ))}
             </ul>
           </Section>
+          </Band>
         )}
 
         <Section labelledBy="overview-heading" last={!project.technologies.length}>
-          <SectionHeading index={next()} label="Overview" id="overview-heading" title="Overview" />
+          <SectionHeading index={next()} label="Overview" id="overview-heading" title="Overview" font="serif" />
           <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,65ch)_1fr]">
             {paragraphs.length ? (
               <div className="grid gap-5 text-lg">
@@ -122,12 +129,13 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
 
         {project.technologies.length > 0 && (
           <Section labelledBy="stack-heading" last>
-            <SectionHeading index={next()} label="Stack" id="stack-heading" title="Technologies" />
+            <SectionHeading index={next()} label="Stack" id="stack-heading" title="Technologies" font="mono" />
             <Reveal from="left">
-              <TechList items={project.technologies} className="mt-8 text-base" />
+              <TechList items={project.technologies} variant="tiles" className="mt-8" />
             </Reveal>
           </Section>
         )}
+        </div>
       </Threaded>
     </>
   );
