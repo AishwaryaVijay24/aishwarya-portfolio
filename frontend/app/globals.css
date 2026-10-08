@@ -323,6 +323,144 @@ body {
   transform: translateY(105%);
 }
 
+/* Directional reveals (Reveal component, data-reveal="up|left|right|scale|tilt").
+   Only elements below the fold at load are hidden first; see Reveal.tsx. */
+[data-reveal] {
+  transition: opacity var(--slow) var(--ease) var(--delay, 0ms), transform var(--slow) var(--ease) var(--delay, 0ms);
+}
+[data-reveal][data-pre="true"] {
+  opacity: 0;
+}
+[data-reveal="up"][data-pre="true"] {
+  transform: translateY(36px);
+}
+[data-reveal="left"][data-pre="true"] {
+  transform: translateX(-64px);
+}
+[data-reveal="right"][data-pre="true"] {
+  transform: translateX(64px);
+}
+[data-reveal="scale"][data-pre="true"] {
+  transform: scale(0.94);
+}
+[data-reveal="tilt"][data-pre="true"] {
+  transform: translateX(48px) rotate(2.5deg);
+}
+
+/* Word-by-word heading reveal (Words component) */
+.words .w {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  padding-bottom: 0.12em;
+  margin-bottom: -0.12em;
+}
+.words .w > span {
+  display: inline-block;
+  transition: transform var(--slow) var(--ease) calc(var(--i, 0) * 55ms + var(--delay, 0ms));
+}
+[data-pre="true"] .words .w > span {
+  transform: translateY(115%);
+}
+
+/* Slowly rotating circular label (decorative) */
+.spin-slow {
+  animation: spin 38s linear infinite;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Timeline */
+.timeline-line {
+  transform-origin: top;
+}
+
+/* Flip cards (project rail) */
+.flip {
+  perspective: 1100px;
+}
+.flip-inner {
+  position: relative;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 800ms var(--ease);
+}
+@media (hover: hover) {
+  .flip:hover .flip-inner,
+  .flip:focus-visible .flip-inner {
+    transform: rotateY(180deg);
+  }
+}
+.flip-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  border-radius: 10px;
+  overflow: hidden;
+}
+.flip-back {
+  transform: rotateY(180deg);
+}
+
+/* Horizontal rail */
+.rail {
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.rail::-webkit-scrollbar {
+  display: none;
+}
+.rail > * {
+  scroll-snap-align: start;
+}
+
+/* Icon micro-motion */
+.icon-nudge {
+  transition: transform var(--base) var(--ease);
+}
+a:hover .icon-nudge,
+button:hover .icon-nudge,
+a:focus-visible .icon-nudge {
+  transform: translate(2px, -2px);
+}
+
+/* Cursor companion: zero-size anchors follow the pointer; children are offset from them */
+.cursor-anchor {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  z-index: 50;
+  pointer-events: none;
+}
+.cursor-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  border: 1.5px solid var(--thread);
+  background: color-mix(in srgb, var(--thread) 10%, transparent);
+}
+.cursor-label {
+  position: absolute;
+  left: 54px;
+  top: 22px;
+  font: 500 10px/1 var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 6px 8px;
+  border-radius: 6px;
+  background: var(--lilac);
+  color: var(--night);
+  white-space: nowrap;
+}
+
 /* ── Numbered lists ───────────────────────────────── */
 .numbered-row {
   position: relative;
@@ -437,10 +575,9 @@ body {
 
 /* ── Robot companion ──────────────────────────────── */
 .robot {
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 50;
+  position: absolute;
+  left: 14px;
+  top: 16px;
   width: 34px;
   height: 34px;
   pointer-events: none;
@@ -560,8 +697,14 @@ body {
   .project-card:hover .card-title {
     transform: none;
   }
-  .robot,
+  .cursor-anchor,
   .grid-glow {
     display: none;
+  }
+  .spin-slow {
+    animation: none;
+  }
+  .flip-inner {
+    transition: none;
   }
 }

@@ -15,8 +15,12 @@ export type Project = {
   description: string | null;
   status: ProjectStatus;
   technologies: string[];
+  period: string | null;
+  category: string | null;
+  highlights: string[];
   repository_url: string | null;
   demo_url: string | null;
+  paper_url: string | null;
   featured: boolean;
 };
 
@@ -83,8 +87,12 @@ export const isProject: Guard<Project> = (v): v is Project =>
   isString(v.status) &&
   PROJECT_STATUSES.includes(v.status) &&
   isStringArray(v.technologies) &&
+  isStringOrNull(v.period) &&
+  isStringOrNull(v.category) &&
+  isStringArray(v.highlights) &&
   isStringOrNull(v.repository_url) &&
   isStringOrNull(v.demo_url) &&
+  isStringOrNull(v.paper_url) &&
   typeof v.featured === "boolean";
 
 export const isExperience: Guard<Experience> = (v): v is Experience =>

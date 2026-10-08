@@ -2,25 +2,72 @@ import Link from "next/link";
 import { Suspense } from "react";
 
 import { LivingSystem } from "@/components/architecture/LivingSystem";
-import { NumberedList } from "@/components/experience/NumberedList";
+import { RoadmapStepper } from "@/components/architecture/RoadmapStepper";
+import { SystemBand } from "@/components/architecture/SystemBand";
+import { Timeline } from "@/components/experience/Timeline";
 import { Hero } from "@/components/hero/Hero";
 import { Threaded } from "@/components/layout/Threaded";
-import { ProjectGrid, ProjectGridSkeleton } from "@/components/projects/ProjectGrid";
+import { Magnetic } from "@/components/motion/Magnetic";
+import { Words } from "@/components/motion/Words";
+import { ProjectRail } from "@/components/projects/ProjectRail";
+import { ProjectSpotlight } from "@/components/projects/ProjectSpotlight";
+import { PublicationFeature } from "@/components/research/PublicationFeature";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
+import { RowsSkeleton, SpotlightSkeleton } from "@/components/ui/Skeletons";
 import { EmptyState, ErrorState } from "@/components/ui/StateMessage";
-import { StatusBadge } from "@/components/ui/StatusBadge";
-import { Terminal } from "@/components/ui/Terminal";
+import { TypingTerminal } from "@/components/ui/TypingTerminal";
+import { getEducation } from "@/lib/api/education";
+import { getExperience } from "@/lib/api/experience";
 import { getProjects } from "@/lib/api/projects";
-import { roadmap } from "@/lib/content/roadmap";
+import { getPublications } from "@/lib/api/research";
+import { educationEntries, experienceEntries } from "@/lib/timeline";
 
-async function SelectedProjects() {
+async function Work() {
   const result = await getProjects();
   if (!result.ok) return <ErrorState what="Projects" error={result.error} />;
+  if (result.data.length === 0) return <EmptyState message="No projects are published yet." />;
   const featured = result.data.filter((p) => p.featured);
-  const projects = (featured.length ? featured : result.data).slice(0, 4);
-  if (projects.length === 0) return <EmptyState message="No projects are published yet." />;
-  return <ProjectGrid projects={projects} />;
+  const spotlight = featured.length ? featured : result.data.slice(0, 2);
+  const rest = result.data.filter((p) => !spotlight.includes(p));
+  return (
+    <>
+      <div className="mt-16 grid gap-[clamp(80px,10vw,140px)]">
+        {spotlight.map((project, i) => (
+          <ProjectSpotlight key={project.slug} project={project} index={i} />
+        ))}
+      </div>
+      {rest.length > 0 && (
+        <div className="mt-[clamp(96px,12vw,160px)]">
+          <Reveal from="left" className="flex flex-wrap items-end justify-between gap-4">
+            <h3 className="condensed text-[clamp(28px,3.4vw,40px)] leading-none font-semibold tracking-[-0.02em]">
+              More <em className="display-word text-violet">builds</em>
+            </h3>
+            <p className="max-w-[44ch] text-muted">Smaller projects and experiments. Hover a card to flip it.</p>
+          </Reveal>
+          <div className="mt-6">
+            <ProjectRail projects={rest} />
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+async function Journey() {
+  const [experience, education] = await Promise.all([getExperience(), getEducation()]);
+  if (!experience.ok) return <ErrorState what="Experience entries" error={experience.error} />;
+  const entries = [...experienceEntries(experience.data), ...(education.ok ? educationEntries(education.data) : [])];
+  if (entries.length === 0) return <EmptyState message="No experience entries are published yet." />;
+  return <Timeline entries={entries} />;
+}
+
+async function Research() {
+  const result = await getPublications();
+  if (!result.ok) return <ErrorState what="Publications" error={result.error} />;
+  if (result.data.length === 0) return <EmptyState message="No publications are listed yet." />;
+  return <PublicationFeature publication={result.data[0]} />;
 }
 
 export default function HomePage() {
@@ -38,58 +85,85 @@ export default function HomePage() {
                 Selected <em className="display-word">work</em>
               </>
             }
-            lede="Each project opens into a detail page with its architecture and decisions."
+            lede="Agents, retrieval systems and full-stack platforms. Each opens into a case study."
           />
-          <Suspense fallback={<ProjectGridSkeleton />}>
-            <SelectedProjects />
+          <Suspense fallback={<SpotlightSkeleton />}>
+            <Work />
           </Suspense>
-          <Link href="/projects" className="btn btn-outline mt-10">
-            All projects <span className="arrow" aria-hidden="true">→</span>
-          </Link>
+          <Reveal from="up" className="mt-12">
+            <Link href="/projects" className="btn btn-outline">
+              All projects <span className="arrow" aria-hidden="true">→</span>
+            </Link>
+          </Reveal>
         </Section>
 
-        <Section labelledBy="build-heading">
+        <Section labelledBy="journey-heading">
           <SectionHeading
             index="02"
-            label="Build"
-            id="build-heading"
+            label="Journey"
+            id="journey-heading"
             title={
               <>
-                How this portfolio is <em className="display-word">built</em>
+                Where I&apos;ve <em className="display-word">built</em> and studied
               </>
             }
-            lede="The portfolio is itself an engineering project, built in phases."
           />
-          <NumberedList
-            label="Build phases"
-            items={roadmap.map((phase) => ({
-              key: phase.title,
-              title: phase.title,
-              meta: phase.stack,
-              detail: phase.detail,
-              aside: <StatusBadge label={phase.status === "in_progress" ? "In progress" : "Planned"} tone={phase.status === "in_progress" ? "current" : "neutral"} />,
-            }))}
-          />
+          <Suspense fallback={<RowsSkeleton rows={4} />}>
+            <Journey />
+          </Suspense>
+          <Reveal from="up" className="mt-12">
+            <Link href="/experience" className="btn btn-outline">
+              Full experience <span className="arrow" aria-hidden="true">→</span>
+            </Link>
+          </Reveal>
         </Section>
 
-        <Section labelledBy="system-heading">
+        <SystemBand labelledBy="system-heading">
+          <div className="grid gap-[clamp(48px,6vw,80px)]">
+            <div className="grid gap-6 lg:grid-cols-[1fr_1fr] lg:items-end">
+              <div>
+                <p className="label tick flex items-center gap-3 text-night-muted" data-knot>
+                  <span className="text-lilac">03</span> System
+                </p>
+                <Reveal as="h2" id="system-heading" className="condensed mt-3.5 text-[clamp(38px,6vw,76px)] leading-none font-semibold tracking-[-0.03em] [&_em]:text-lilac">
+                  <Words>
+                    <>
+                      This portfolio is a <em className="display-word">system</em>
+                    </>
+                  </Words>
+                </Reveal>
+              </div>
+              <Reveal as="p" from="right" className="max-w-[48ch] text-lg text-night-muted">
+                Built in phases, like any production software. Phase 1 layers are solid with live requests moving through them; planned layers are outlined. Hover or
+                focus a layer to trace it.
+              </Reveal>
+            </div>
+            <RoadmapStepper />
+            <LivingSystem bare />
+          </div>
+        </SystemBand>
+
+        <Section labelledBy="research-heading">
           <SectionHeading
-            index="03"
-            label="System"
-            id="system-heading"
+            index="04"
+            label="Research"
+            id="research-heading"
             title={
               <>
-                The <em className="display-word">system</em> behind it
+                Research, <em className="display-word">published</em>
               </>
             }
-            lede="Phase 1 layers are solid, with requests moving through them. Planned layers are outlined. Hover or focus a layer to trace its connections."
           />
-          <LivingSystem />
+          <div className="mt-14">
+            <Suspense fallback={<RowsSkeleton rows={2} />}>
+              <Research />
+            </Suspense>
+          </div>
         </Section>
 
         <Section labelledBy="lab-heading" last>
           <SectionHeading
-            index="04"
+            index="05"
             label="AI Lab"
             id="lab-heading"
             title={
@@ -98,19 +172,29 @@ export default function HomePage() {
               </>
             }
           />
-          <div className="mt-10 grid grid-cols-[repeat(auto-fit,minmax(min(100%,320px),1fr))] items-start gap-7">
-            <div className="grid gap-6">
-              <p className="max-w-[56ch] text-lg text-muted">
-                The Portfolio Agent is coming in a future phase. It will answer questions about my projects, experience and research using only verified information.
+          <div className="mt-12 grid items-center gap-10 lg:grid-cols-[1fr_1.1fr]">
+            <Reveal from="left" className="grid gap-6">
+              <p className="max-w-[52ch] text-lg text-muted">
+                A Portfolio Agent is coming in a future phase. It will answer questions about my projects, experience and research using only verified information,
+                and it will be read-only.
               </p>
-              <Link href="/ai-lab" className="btn btn-solid justify-self-start">
-                Visit the AI Lab <span className="arrow" aria-hidden="true">→</span>
-              </Link>
-            </div>
-            <Terminal
-              label="Portfolio Agent status: planned, read-only"
-              lines={[{ prompt: true, text: "agent status" }, { text: "portfolio-agent: planned" }, { text: "mode: read-only" }]}
-            />
+              <Magnetic>
+                <Link href="/ai-lab" className="btn btn-solid">
+                  Visit the AI Lab <span className="arrow" aria-hidden="true">→</span>
+                </Link>
+              </Magnetic>
+            </Reveal>
+            <Reveal from="tilt" delay={120}>
+              <TypingTerminal
+                label="Portfolio Agent status: planned, read-only, grounded in retrieval"
+                lines={[
+                  { prompt: true, text: "agent status" },
+                  { text: "portfolio-agent: planned" },
+                  { text: "mode: read-only" },
+                  { text: "grounding: retrieval over verified data" },
+                ]}
+              />
+            </Reveal>
           </div>
         </Section>
       </Threaded>

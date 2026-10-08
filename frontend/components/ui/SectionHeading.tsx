@@ -1,3 +1,5 @@
+import { Words } from "@/components/motion/Words";
+
 import { Reveal } from "./Reveal";
 
 type Props = {
@@ -10,7 +12,7 @@ type Props = {
   level?: "h1" | "h2";
 };
 
-/** A section label that lands on the page thread, plus a heading that rises once. */
+/** A section label that lands on the page thread, plus a heading whose words rise in sequence. */
 export function SectionHeading({ index, label, title, lede, id, level = "h2" }: Props) {
   return (
     <div>
@@ -22,11 +24,13 @@ export function SectionHeading({ index, label, title, lede, id, level = "h2" }: 
         id={id}
         className="condensed mt-3.5 text-[clamp(38px,6vw,76px)] leading-none font-semibold tracking-[-0.03em] text-balance [&_em]:text-[1.08em] [&_em]:text-violet"
       >
-        <span className="mask">
-          <span>{title}</span>
-        </span>
+        <Words>{title}</Words>
       </Reveal>
-      {lede && <p className="mt-5 max-w-[60ch] text-lg text-muted">{lede}</p>}
+      {lede && (
+        <Reveal as="p" from="up" delay={250} className="mt-5 max-w-[60ch] text-lg text-muted">
+          {lede}
+        </Reveal>
+      )}
     </div>
   );
 }

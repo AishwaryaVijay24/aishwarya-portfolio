@@ -41,6 +41,13 @@ docker compose down        # stop
 docker compose down -v     # stop and delete the database volume
 ```
 
+### Troubleshooting
+
+- **Which URL?** Open `http://localhost:<FRONTEND_PORT>` (3000 by default, or the value in `.env`). The container log always says `localhost:3000`; that is the port inside the container, not on your machine.
+- **"Bad Request" / "431" in the browser while the API works:** browsers send every `localhost` cookie to every port, and other local apps can make those headers too large for Node.js. The frontend raises Node's header limit to 64 KB; if it still happens, clear cookies for `localhost` or try a private window.
+- **Projects "unavailable" with `npm run dev`:** the dev server reads `API_BASE_URL` from `frontend/.env.local` (default `http://localhost:8000`). Point it at the portfolio backend, e.g. `http://localhost:18000` if you changed `BACKEND_PORT`. The server log shows which URL it called.
+- **Port already allocated:** another app is using that port. Change `FRONTEND_PORT`, `BACKEND_PORT` or `POSTGRES_PORT` in `.env`.
+
 ## Frontend
 
 Requirements: Node.js 22 or newer (developed on Node 24).

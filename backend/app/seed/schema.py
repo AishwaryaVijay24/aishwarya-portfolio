@@ -34,8 +34,12 @@ class SeedProject(Strict):
     description: str | None = None
     status: ProjectStatus
     technologies: list[str] = []
+    period: str | None = Field(default=None, max_length=40)
+    category: str | None = Field(default=None, max_length=80)
+    highlights: list[str] = []
     repository_url: str | None = None
     demo_url: str | None = None
+    paper_url: str | None = None
     featured: bool = False
 
 

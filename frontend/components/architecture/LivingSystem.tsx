@@ -24,7 +24,7 @@ function edgePath(fromId: string, toId: string) {
  * The supporting visual (DESIGN.md §8): the portfolio's own architecture.
  * Phase 1 layers are solid with signals moving through them; planned layers are outlined.
  */
-export function LivingSystem() {
+export function LivingSystem({ bare = false }: { bare?: boolean }) {
   const reduceMotion = useReducedMotion();
   const [hot, setHot] = useState<string | null>(null);
   const linked = new Set<string>();
@@ -37,8 +37,10 @@ export function LivingSystem() {
   }
 
   return (
-    <figure className="mt-12">
-      <div className="on-night system overflow-x-auto rounded-[10px] bg-night p-[clamp(16px,3vw,32px)] text-on-night">
+    <figure className={bare ? "" : "mt-12"}>
+      <div
+        className={`on-night system overflow-x-auto text-on-night ${bare ? "rounded-[10px] border border-on-night/10 p-[clamp(12px,2vw,24px)]" : "rounded-[10px] bg-night p-[clamp(16px,3vw,32px)]"}`}
+      >
         <svg
           viewBox="0 0 860 300"
           className="block h-auto w-full min-w-[640px]"
@@ -99,9 +101,9 @@ export function LivingSystem() {
           </g>
         </svg>
       </div>
-      <figcaption className="mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs text-muted">
+      <figcaption className={`mt-4 flex flex-wrap gap-x-6 gap-y-2 font-mono text-xs ${bare ? "text-night-muted" : "text-muted"}`}>
         <span className="inline-flex items-center gap-2">
-          <i className="inline-block h-2.5 w-3.5 rounded-sm bg-violet" aria-hidden="true" /> Phase 1, in progress
+          <i className={`inline-block h-2.5 w-3.5 rounded-sm ${bare ? "bg-lilac" : "bg-violet"}`} aria-hidden="true" /> Phase 1, in progress
         </span>
         <span className="inline-flex items-center gap-2">
           <i className="inline-block h-2.5 w-3.5 rounded-sm shadow-[inset_0_0_0_1px_var(--muted)]" aria-hidden="true" /> Planned

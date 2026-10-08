@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Magnetic } from "@/components/motion/Magnetic";
 import { site } from "@/lib/config/site";
 import { HeroField } from "./HeroField";
 
@@ -30,12 +31,16 @@ export function Hero() {
         </p>
         <p className="max-w-[38ch] text-[17px] text-night-muted">{site.statement}</p>
         <div className="mt-1.5 flex flex-wrap gap-3">
-          <Link href="/projects" className="btn btn-primary">
-            Explore my work <span className="arrow" aria-hidden="true">→</span>
-          </Link>
-          <Link href="/ai-lab" className="btn btn-ghost">
-            Talk to my AI
-          </Link>
+          <Magnetic>
+            <Link href="/projects" className="btn btn-primary">
+              Explore my work <span className="arrow" aria-hidden="true">→</span>
+            </Link>
+          </Magnetic>
+          <Magnetic>
+            <Link href="/ai-lab" className="btn btn-ghost">
+              Talk to my AI
+            </Link>
+          </Magnetic>
         </div>
       </div>
 

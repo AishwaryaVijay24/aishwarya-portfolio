@@ -13,8 +13,12 @@ const project: Project = {
   description: null,
   status: "prototype",
   technologies: [],
+  period: null,
+  category: null,
+  highlights: [],
   repository_url: null,
   demo_url: null,
+  paper_url: null,
   featured: true,
 };
 
@@ -44,9 +48,15 @@ describe("apiGet", () => {
     expect(init.cache).toBe("no-store");
   });
 
-  it("maps 404 to not_found", async () => {
+  it("maps 404 on a single-item lookup to not_found", async () => {
     fetchMock.mockResolvedValue(json({ detail: "Not found" }, 404));
-    expect(await apiGet("/api/projects/missing", isProject)).toEqual({ ok: false, error: "not_found" });
+    expect(await apiGet("/api/projects/missing", isProject, { notFoundMeansMissing: true })).toEqual({ ok: false, error: "not_found" });
+  });
+
+  it("treats 404 on a list endpoint as an unavailable backend", async () => {
+    // e.g. API_BASE_URL pointing at a different service
+    fetchMock.mockResolvedValue(json({ detail: "Not Found" }, 404));
+    expect(await apiGet("/api/projects", arrayOf(isProject))).toEqual({ ok: false, error: "unavailable" });
   });
 
   it("maps server errors to unavailable", async () => {

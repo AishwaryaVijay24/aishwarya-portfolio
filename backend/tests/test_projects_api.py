@@ -5,8 +5,12 @@ FRONTEND_PROJECT_FIELDS = {
     "description",
     "status",
     "technologies",
+    "period",
+    "category",
+    "highlights",
     "repository_url",
     "demo_url",
+    "paper_url",
     "featured",
 }
 

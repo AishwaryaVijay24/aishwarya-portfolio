@@ -8,5 +8,5 @@ export function getProjects() {
 }
 
 export function getProject(slug: string) {
-  return apiGet(`/api/projects/${encodeURIComponent(slug)}`, isProject);
+  return apiGet(`/api/projects/${encodeURIComponent(slug)}`, isProject, { notFoundMeansMissing: true });
 }

@@ -20,6 +20,11 @@ export const site = {
   positioning: "AI × Software Engineering",
   statement: "I build intelligent software systems from the model layer to the production stack.",
   heroCaption: "Nodes are components. Pulses are requests moving through the system.",
+  // From the résumé summary in content/.
+  bio: [
+    "Full-stack software engineer with a BTech in Computer Science and an MSc in Artificial Intelligence from Queen Mary University of London.",
+    "I build reliable backend services in Python and Java and operator-facing interfaces in TypeScript and React, with hands-on AI/ML experience from embedding search to multi-agent systems.",
+  ],
   description:
     "Portfolio of Aishwarya Vijay, working across AI engineering and full-stack software engineering.",
 } as const;

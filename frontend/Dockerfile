@@ -14,7 +14,10 @@ RUN npm run build
 
 FROM node:24-alpine AS runtime
 WORKDIR /app
+# Browsers send every localhost cookie to every port; other local apps can push
+# headers past Node's 16 KB default and cause "431/400 Bad Request".
 ENV NODE_ENV=production \
+    NODE_OPTIONS=--max-http-header-size=65536 \
     NEXT_TELEMETRY_DISABLED=1 \
     HOSTNAME=0.0.0.0 \
     PORT=3000

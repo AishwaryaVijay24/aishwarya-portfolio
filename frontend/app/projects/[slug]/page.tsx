@@ -4,15 +4,17 @@ import { notFound } from "next/navigation";
 import { cache, ViewTransition } from "react";
 
 import { Threaded } from "@/components/layout/Threaded";
+import { Words } from "@/components/motion/Words";
 import { NetworkArt, seedFrom } from "@/components/projects/NetworkArt";
-import { splitTitle } from "@/components/projects/ProjectCard";
+import { ProjectFacts, ProjectLinks } from "@/components/projects/ProjectMeta";
 import { TechList } from "@/components/technology/TechList";
+import { CircleCheck } from "@/components/ui/icons";
+import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { ErrorState } from "@/components/ui/StateMessage";
-import { StatusBadge } from "@/components/ui/StatusBadge";
 import { getProject } from "@/lib/api/projects";
-import { projectStatusLabel } from "@/lib/format";
+import { splitTitle } from "@/lib/text";
 
 // Shared by generateMetadata and the page, so the API is called once per request.
 const loadProject = cache(getProject);
@@ -44,7 +46,8 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
   const project = result.data;
   const [lead, last] = splitTitle(project.title);
   const paragraphs = (project.description ?? "").split(/\n{2,}/).filter(Boolean);
-  const current = project.status === "in_progress" || project.status === "active";
+  let index = 0;
+  const next = () => String(++index).padStart(2, "0");
 
   return (
     <>
@@ -52,21 +55,23 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
         data-night-band
         className="night-band on-night grid gap-10 px-[var(--rail)] pt-[calc(env(safe-area-inset-top,0px)+112px)] pb-16 lg:grid-cols-[1.1fr_1fr] lg:items-end"
       >
-        <div>
+        <div className="grid gap-6">
           <Link href="/projects" className="label text-night-muted no-underline hover:text-on-night">
             ← All projects
           </Link>
-          <h1 className="condensed mt-6 text-[clamp(44px,7vw,92px)] leading-[0.95] font-semibold tracking-[-0.03em] text-balance">
-            {lead}
-            <em className="display-word text-lilac">{last}</em>
-          </h1>
-          {project.summary && <p className="mt-6 max-w-[52ch] text-lg text-night-muted">{project.summary}</p>}
-          <div className="mt-6">
-            <StatusBadge label={projectStatusLabel[project.status]} tone={current ? "current" : "neutral"} onNight />
-          </div>
+          <Reveal as="h1" className="condensed text-[clamp(44px,7vw,92px)] leading-[0.95] font-semibold tracking-[-0.03em] text-balance">
+            <Words>
+              <>
+                {lead}
+                <em className="display-word text-lilac">{last}</em>
+              </>
+            </Words>
+          </Reveal>
+          {project.summary && <p className="max-w-[52ch] text-lg text-night-muted">{project.summary}</p>}
+          <ProjectFacts project={project} onNight />
         </div>
         <ViewTransition name={`project-${project.slug}`} share="morph" default="none">
-          <div className="relative aspect-[4/3.2] overflow-hidden rounded-[10px] bg-night ring-1 ring-on-night/10">
+          <div className="relative aspect-[16/11] overflow-hidden rounded-[10px] bg-night ring-1 ring-on-night/10">
             <div className="absolute -inset-[6%]">
               <NetworkArt seed={seedFrom(project.slug)} />
             </div>
@@ -75,36 +80,52 @@ export default async function ProjectPage({ params }: PageProps<"/projects/[slug
       </header>
 
       <Threaded>
-        <Section labelledBy="overview-heading" last={!project.technologies.length}>
-          <SectionHeading index="01" label="Overview" id="overview-heading" title="Overview" />
-          {paragraphs.length ? (
-            <div className="mt-8 grid max-w-[65ch] gap-5 text-lg">
-              {paragraphs.map((p, i) => (
-                <p key={i}>{p}</p>
+        {project.highlights.length > 0 && (
+          <Section labelledBy="highlights-heading">
+            <SectionHeading index={next()} label="Highlights" id="highlights-heading" title="What it does" />
+            <ul className="mt-10 grid gap-4 md:grid-cols-2">
+              {project.highlights.map((h, i) => (
+                <Reveal
+                  as="li"
+                  key={h}
+                  from={i % 2 ? "right" : "left"}
+                  delay={i * 90}
+                  className="flex gap-3 rounded-[10px] border border-line bg-surface/70 p-5 text-[15px] leading-snug"
+                >
+                  <CircleCheck size={20} className="mt-px shrink-0 text-violet" aria-hidden="true" />
+                  <span>{h}</span>
+                </Reveal>
               ))}
-            </div>
-          ) : (
-            <p className="mt-8 text-muted">A full write-up for this project has not been published yet.</p>
-          )}
-          {(project.repository_url || project.demo_url) && (
-            <div className="mt-10 flex flex-wrap gap-3">
-              {project.repository_url && (
-                <a href={project.repository_url} className="btn btn-solid" target="_blank" rel="noreferrer">
-                  Source code <span className="arrow" aria-hidden="true">↗</span>
-                </a>
-              )}
-              {project.demo_url && (
-                <a href={project.demo_url} className="btn btn-outline" target="_blank" rel="noreferrer">
-                  Live demo <span className="arrow" aria-hidden="true">↗</span>
-                </a>
-              )}
-            </div>
-          )}
+            </ul>
+          </Section>
+        )}
+
+        <Section labelledBy="overview-heading" last={!project.technologies.length}>
+          <SectionHeading index={next()} label="Overview" id="overview-heading" title="Overview" />
+          <div className="mt-8 grid gap-10 lg:grid-cols-[minmax(0,65ch)_1fr]">
+            {paragraphs.length ? (
+              <div className="grid gap-5 text-lg">
+                {paragraphs.map((p, i) => (
+                  <Reveal as="p" key={i} from="up" delay={i * 80}>
+                    {p}
+                  </Reveal>
+                ))}
+              </div>
+            ) : (
+              <p className="text-muted">A full write-up for this project has not been published yet.</p>
+            )}
+            <Reveal from="right" className="grid content-start gap-4">
+              <ProjectLinks project={project} />
+            </Reveal>
+          </div>
         </Section>
+
         {project.technologies.length > 0 && (
           <Section labelledBy="stack-heading" last>
-            <SectionHeading index="02" label="Stack" id="stack-heading" title="Technologies" />
-            <TechList items={project.technologies} className="mt-8 text-base" />
+            <SectionHeading index={next()} label="Stack" id="stack-heading" title="Technologies" />
+            <Reveal from="left">
+              <TechList items={project.technologies} className="mt-8 text-base" />
+            </Reveal>
           </Section>
         )}
       </Threaded>

@@ -330,6 +330,29 @@ Not every piece of content needs to be inside a card.
 
 Use cards when they provide meaningful grouping or interaction.
 
+## Section patterns
+
+Each section has its own composition. Do not build every section as heading → paragraph → identical cards.
+
+| Pattern | Used for | Composition |
+|---|---|---|
+| Spotlight rows | Featured projects (home) | Large artwork and text side by side; rows alternate left/right |
+| Flip-card rail | Supporting projects (home) | Horizontal, snap-scrolling rail; cards flip on hover/focus to reveal stack and summary |
+| Editorial index | All projects (/projects) | Large ruled rows; a preview panel follows the cursor over the hovered row |
+| Timeline | Experience and education | Vertical centre line with icon nodes; entries alternate sides |
+| Stepper | Build phases | Horizontal steps with icons on Night; vertical on small screens |
+| Full-width band | Architecture (home) | A Night band that breaks out of the content column to the viewport edges |
+| Publication feature | Published research | Large title, authors with the site owner in bold, slowly rotating "published" seal |
+| Icon cards | Skills, planned agent tools | Category icon plus mono chips; first card spans the row |
+
+## Icons
+
+Icons come from lucide-react (ISC licence), plus two brand marks it no longer ships: GitHub (Simple Icons, CC0) and a plain "in" mark for LinkedIn.
+
+Use icons only where they add meaning: link types (GitHub, LinkedIn, email, paper, external), timeline kinds (work, education), skill categories, project metadata (period, category), build phases, research and agent tools.
+
+Icons are decorative (`aria-hidden`) unless they are the only label.
+
 ## Section surfaces: graph paper
 
 Reading sections below the hero sit on a faint graph-paper grid (minor and major lines from the ink colour at very low opacity).
@@ -419,7 +442,9 @@ The prototype also tested a "signal grid" (a dot-matrix terrain with a scan line
 A small lilac robot icon follows the mouse cursor.
 
 * It trails the cursor with a spring, leans as it moves, and its eyes look in the direction of travel.
-* It blinks occasionally and smiles over interactive elements.
+* It blinks occasionally.
+* Over links and buttons: a small ring (40px) expands around the pointer and the robot smiles.
+* Over project cards (`data-cursor="view"`): a small "View →" label appears beside the robot.
 * It never replaces the system cursor.
 * Mouse only: hidden on touch devices and with `prefers-reduced-motion`.
 * `aria-hidden`; it carries no information.
@@ -477,8 +502,27 @@ One continuous line leaves the hero and runs down the page.
 
 The thread is what connects sections. It replaces generic per-section fade-ins.
 
+### Entrances
+
+Elements enter from the direction that fits the composition, not always from below:
+
+* `left` / `right`: alternating rows, timeline entries, spotlight artwork and text (from opposite sides)
+* `tilt`: cards shifting into place (rail cards, terminal)
+* `scale`: decorative objects (the publication seal)
+* `up`: supporting text
+* Headings reveal word by word.
+
+Stagger related items (about 80–140ms apart). Never animate a whole page at once.
+
+Only elements below the fold at load start hidden, so server-rendered content is always visible without JavaScript.
+
 ### 3. Interaction
 
+* **CTAs:** primary buttons are magnetic (they drift slightly toward the pointer).
+* **Project artwork:** tilts toward the cursor with layered depth and drifts against the scroll (parallax).
+* **Rail cards:** flip to reveal stack and summary.
+* **Project index:** a floating preview follows the cursor.
+* **Link icons:** arrows nudge diagonally on hover.
 * **List rows:** on hover or focus, the thread segment brightens, the text shifts slightly, and secondary metadata appears.
 * **Project cards:** layered depth. Inner layers move at different depths with the pointer, a few degrees of tilt at most. The title rises to reveal a technology line. No blanket `scale(1.02)`.
 * **Hero:** nodes near the cursor brighten and the camera tilts.
@@ -536,7 +580,8 @@ The page must look complete with zero motion.
 | Tool | Used for |
 |---|---|
 | CSS | Hover and focus states, colour transitions, reduced-motion fallbacks |
-| Framer Motion (`motion` package) | The nav marker, card tilt, the robot companion |
+| Framer Motion (`motion` package) | Nav marker, card tilt, parallax, magnetic CTAs, the timeline line, the full-width band, the cursor companion, the index preview |
+| CSS (`Reveal`, `Words`) | Directional entrances, word reveals, flip cards, the rotating seal |
 | React `<ViewTransition>` | Route crossfades and the project card → detail morph (no extra library) |
 | React Three Fiber | The hero neural mesh only, loaded lazily on the client |
 | Drei | Performance helpers only (adaptive resolution under load) |
@@ -873,6 +918,49 @@ Aishwarya felt the name was too big.
 
 **Inspired by:**
 Hero prototype review
+
+**Date:**
+2026-10-08
+
+
+### Section-by-section composition and richer motion
+
+**Decision:**
+Replace the repeated heading → cards template with distinct section patterns (§7), directional and word-by-word entrances, magnetic CTAs, parallax, flip cards, a cursor-following project preview and a scroll-driven full-width band (§9).
+
+**Reason:**
+Aishwarya found the site repetitive and static. The ChainGPT and Chillo Coffee references are about how components move; these patterns give each section its own movement while staying controlled.
+
+**Inspired by:**
+ChainGPT and Chillo Coffee (motion principles, not visuals)
+
+**Date:**
+2026-10-08
+
+### Icon system
+
+**Decision:**
+lucide-react for interface icons, Simple Icons (CC0) for the GitHub mark, a plain mark for LinkedIn. Icons only where they carry meaning.
+
+**Reason:**
+Requested by Aishwarya to improve information hierarchy.
+
+**Inspired by:**
+Aishwarya's request
+
+**Date:**
+2026-10-08
+
+### Cursor companion restored and extended
+
+**Decision:**
+The robot companion now drives its visibility through motion values (it was invisible because its opacity was a static style that never updated), and gains a link ring and a "View" label for project cards.
+
+**Reason:**
+Aishwarya noticed the cursor interaction had disappeared and wanted it to react to interactive elements.
+
+**Inspired by:**
+Aishwarya's request
 
 **Date:**
 2026-10-08

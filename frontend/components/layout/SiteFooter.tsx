@@ -1,4 +1,7 @@
+import { GithubIcon, LinkedinIcon, Mail } from "@/components/ui/icons";
 import { externalLinks, site } from "@/lib/config/site";
+
+const ICONS = { github: <GithubIcon size={15} />, linkedin: <LinkedinIcon size={15} />, email: <Mail size={15} aria-hidden="true" /> };
 
 export function SiteFooter() {
   return (
@@ -9,8 +12,8 @@ export function SiteFooter() {
       <ul className="flex flex-wrap gap-6">
         {externalLinks.map((link) => (
           <li key={link.id}>
-            <a href={link.href} className="hover:text-ink" rel="noreferrer" target={link.id === "email" ? undefined : "_blank"}>
-              {link.label}
+            <a href={link.href} className="inline-flex items-center gap-2 hover:text-ink" rel="noreferrer" target={link.id === "email" ? undefined : "_blank"}>
+              {ICONS[link.id]} {link.label}
             </a>
           </li>
         ))}

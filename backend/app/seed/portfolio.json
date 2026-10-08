@@ -15,13 +15,51 @@
       ],
       "repository_url": null,
       "demo_url": null,
+      "featured": true,
+      "period": "2026 – present",
+      "category": "Agentic AI · Backend",
+      "highlights": [
+        "MCP server exposing 5+ case-management tools to Python workflows",
+        "Every agent action passes schema validation and human approval before any case-state change",
+        "LangGraph supervisor on Azure OpenAI coordinating triage and evidence agents with per-case memory",
+        "99% schema adherence across 150+ simulated scenarios (LangSmith)",
+        "Self-correction step lifted first-pass approval from 65% to 88%"
+      ],
+      "paper_url": null
+    },
+    {
+      "slug": "sciclaim",
+      "title": "SciClaim",
+      "summary": "Scientific claim verification: hybrid retrieval, query rewriting, reranking and LLM-generated verdicts on SciFact.",
+      "description": "A group project: a retrieval and generation pipeline that verifies scientific claims against the SciFact corpus.\n\nEach claim is rewritten by Qwen3-1.7B into a sparse (BM25-friendly) query and a dense (semantic) query. BM25 and dense retrieval (all-MiniLM-L6-v2) are fused into 20 candidates, a cross-encoder (ms-marco-MiniLM-L-6-v2) reranks them to the top 3, and an instruction-tuned model (Qwen2.5-3B-Instruct by default, Llama-3.2-3B-Instruct as an alternative) produces a structured verdict: SUPPORTS, REFUTES or NOT ENOUGH INFO, with an evidence summary, reasoning and counter-evidence.\n\nRetrieval and rewriting were evaluated with Recall and nDCG on the 300-query test set. Hybrid retrieval outperformed BM25, and BM25 outperformed dense retrieval, on every reported metric; both rewriting pipelines improved on their retrieval-only baselines. End-to-end verdict accuracy was 58% on a 50-query sample, with a mean latency of about 36 seconds on CPU and a 2% parse-failure rate.",
+      "status": "completed",
+      "technologies": [
+        "Python",
+        "Pyserini (BM25)",
+        "sentence-transformers",
+        "Cross-encoder reranking",
+        "Qwen",
+        "Llama",
+        "Hugging Face"
+      ],
+      "period": "2026",
+      "category": "Retrieval · LLM evaluation · Group project",
+      "highlights": [
+        "Hybrid retrieval Recall@5 0.779 vs BM25 0.743 and dense 0.731 (300 queries)",
+        "Hybrid rewriting reached nDCG@5 0.707, above every retrieval-only baseline",
+        "Cross-encoder reranks 20 candidates to the top 3 evidence passages",
+        "Structured verdicts with evidence summary, reasoning and counter-evidence"
+      ],
+      "repository_url": "https://github.com/AishwaryaVijay24/SciClaim-Retrieval",
+      "demo_url": null,
+      "paper_url": null,
       "featured": true
     },
     {
       "slug": "cyberresponse",
       "title": "CyberResponse",
-      "summary": "Fraud reporting platform, published at IEEE ICoECIT 2026.",
-      "description": "Co-built a fraud intake platform as microservices (API, AI worker, notifications) with Redis and PostgreSQL, ML-based classification, real-time case tracking and an operator admin dashboard.\n\nPublished at IEEE ICoECIT 2026 (DOI: 10.1109/ICoECIT68303.2026.11497960).",
+      "summary": "Fraud intake platform built as microservices, published at IEEE ICoECIT 2026.",
+      "description": "Co-built a fraud intake platform as microservices (API, AI worker, notifications) with Redis and PostgreSQL, ML-based classification, real-time case tracking and an operator admin dashboard.\n\nThe work was published as \"CyberResponse: A resilient Framework for collecting and responding to digital crimes and frauds\" at the 2026 IEEE International Conference on Emerging Computing and Intelligent Technologies (ICoECIT).",
       "status": "completed",
       "technologies": [
         "Microservices",
@@ -31,7 +69,93 @@
       ],
       "repository_url": null,
       "demo_url": null,
-      "featured": true
+      "featured": true,
+      "period": "2026",
+      "category": "Full-stack · Research",
+      "highlights": [
+        "Microservices: API, AI worker and notifications",
+        "Redis and PostgreSQL, with ML-based classification",
+        "Real-time case tracking and an operator admin dashboard",
+        "Published at IEEE ICoECIT 2026"
+      ],
+      "paper_url": "https://doi.org/10.1109/ICoECIT68303.2026.11497960"
+    },
+    {
+      "slug": "qwen-rag-knowledge-assistant",
+      "title": "Qwen RAG Knowledge Assistant",
+      "summary": "Retrieval-augmented question answering with Qwen and Chroma, evaluated separately at the retrieval and answer stages.",
+      "description": "A retrieval-augmented generation app built on SQuAD: documents are cleaned, chunked and embedded with a Qwen embedding model into a Chroma vector database, and a Qwen instruction model answers from the retrieved context only. A Gradio interface shows the answer together with its source chunks, so answers can be checked.\n\nRetrieval and answers are evaluated separately. Vector retrieval found the correct answer in the top 5 chunks 92% of the time. A BM25 + vector hybrid with Reciprocal Rank Fusion helped some exact-keyword queries but did not improve overall accuracy on this set, so vector retrieval stays the default. On a small 10-question sample, answers reached 70% exact match and 90% containment.",
+      "status": "prototype",
+      "technologies": [
+        "Python",
+        "Qwen",
+        "Chroma",
+        "Hugging Face",
+        "rank-bm25",
+        "Gradio"
+      ],
+      "period": "2026",
+      "category": "RAG",
+      "highlights": [
+        "Vector retrieval top-5 accuracy: 92%",
+        "Hybrid BM25 + vector search with Reciprocal Rank Fusion compared as an experiment",
+        "Answers shown with their source chunks",
+        "70% exact match and 90% containment on a 10-question sample"
+      ],
+      "repository_url": "https://github.com/AishwaryaVijay24/qwen-rag-knowledge-assistant",
+      "demo_url": null,
+      "paper_url": null,
+      "featured": false
+    },
+    {
+      "slug": "ecoeats",
+      "title": "EcoEats",
+      "summary": "A web application focused on reducing food waste in the Indian context.",
+      "description": "Designed and developed a full-stack web application focused on reducing food waste in the Indian context.\n\nThe frontend is built with React and Tailwind CSS, and the backend is an Express API on MongoDB with JWT-based authentication. Frontend and backend live in separate repositories: EcoEatsFrontend and EcoEatsWebsiteBackEnd.",
+      "status": "completed",
+      "technologies": [
+        "React",
+        "Tailwind CSS",
+        "Node.js",
+        "Express",
+        "MongoDB",
+        "JWT"
+      ],
+      "period": "2024",
+      "category": "Full-stack · Sustainability",
+      "highlights": [
+        "React and Tailwind CSS frontend",
+        "Express API on MongoDB with JWT authentication"
+      ],
+      "repository_url": "https://github.com/AishwaryaVijay24/EcoEatsFrontend",
+      "demo_url": null,
+      "paper_url": null,
+      "featured": false
+    },
+    {
+      "slug": "ml-tutor-llm-lora",
+      "title": "ML Tutor LLM with LoRA",
+      "summary": "Fine-tuning a compact instruction model with SFT and LoRA to answer beginner machine learning questions.",
+      "description": "A hands-on LLM workflow: instruction-response data is converted to chat format, a compact instruct model (SmolLM2-360M-Instruct) is fine-tuned with supervised fine-tuning and LoRA, and the tuned model is compared against the base model. The LoRA adapter is saved, reloaded and served through a small command-line chat app.\n\nIt also explores decoding strategies (greedy, temperature, top-p) and inspects logits and next-token probabilities. It is a learning project with a deliberately small dataset, not a production model.",
+      "status": "experimental",
+      "technologies": [
+        "Python",
+        "Hugging Face Transformers",
+        "PEFT (LoRA)",
+        "TRL (SFT)",
+        "PyTorch"
+      ],
+      "period": "2026",
+      "category": "LLM fine-tuning",
+      "highlights": [
+        "SFT + LoRA fine-tuning of SmolLM2-360M-Instruct",
+        "Base vs tuned model evaluation",
+        "Decoding strategies and next-token probabilities explored"
+      ],
+      "repository_url": "https://github.com/AishwaryaVijay24/ml-tutor-llm-lora",
+      "demo_url": null,
+      "paper_url": null,
+      "featured": false
     }
   ],
   "experience": [
@@ -107,18 +231,31 @@
   ],
   "research": [
     {
-      "title": "CyberResponse: Fraud Reporting Platform",
-      "summary": "Co-built a fraud intake platform as microservices (API, AI worker, notifications) with Redis and PostgreSQL, ML-based classification, real-time case tracking and an operator admin dashboard. Published at IEEE ICoECIT 2026 (DOI: 10.1109/ICoECIT68303.2026.11497960).",
+      "title": "A Multilingual Stroop Benchmark for Testing Visual-Textual Cue Interference in Vision-Language Models",
+      "summary": "MSc dissertation (Queen Mary University of London). Tests whether vision-language models report the visible font colour in Stroop-style images or are pulled towards the written word or background colour. Evaluates CLIP ViT-B/16 and Qwen2.5-VL-3B-Instruct across English, Chinese, Hindi and Arabic, with prompt-robustness and text-recognition controls, plus Grad-CAM-style and attention heatmaps for interpretability.",
+      "status": "completed",
+      "url": "https://github.com/AishwaryaVijay24/DissertationStroopEffect"
+    },
+    {
+      "title": "CyberResponse: A resilient Framework for collecting and responding to digital crimes and frauds",
+      "summary": "Fraud intake platform built as microservices (API, AI worker, notifications) with Redis and PostgreSQL, ML-based classification, real-time case tracking and an operator admin dashboard. Published at IEEE ICoECIT 2026.",
       "status": "published",
       "url": "https://doi.org/10.1109/ICoECIT68303.2026.11497960"
     }
   ],
   "publications": [
     {
-      "title": "CyberResponse: Fraud Reporting Platform",
-      "venue": "IEEE ICoECIT",
+      "title": "CyberResponse: A resilient Framework for collecting and responding to digital crimes and frauds",
+      "venue": "2026 IEEE International Conference on Emerging Computing and Intelligent Technologies (ICoECIT)",
       "year": 2026,
-      "authors": [],
+      "authors": [
+        "Sonali Kothari",
+        "Jitendra Rajpurohit",
+        "Aishwarya Vijay",
+        "Rishita Rathore",
+        "Abolee Ingole",
+        "Harshal Chavan"
+      ],
       "url": "https://doi.org/10.1109/ICoECIT68303.2026.11497960"
     }
   ],

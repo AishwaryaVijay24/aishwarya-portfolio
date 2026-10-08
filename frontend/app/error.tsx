@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 // Route error boundary. Shows a calm message only; error details stay in the server logs.
-export default function Error({ retry }: { error: Error & { digest?: string }; retry: () => void }) {
+export default function ErrorPage({ retry }: { error: Error & { digest?: string }; retry: () => void }) {
   return (
     <div className="px-[var(--rail)] pt-40 pb-24">
       <p className="label text-violet">Something went wrong</p>

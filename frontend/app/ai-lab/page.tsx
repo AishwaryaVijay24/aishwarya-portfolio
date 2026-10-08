@@ -6,17 +6,20 @@ import { Threaded } from "@/components/layout/Threaded";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { StatusBadge } from "@/components/ui/StatusBadge";
-import { Terminal } from "@/components/ui/Terminal";
+import { Bot, Database, FileText, FlaskConical, Layers } from "lucide-react";
+
+import { Reveal } from "@/components/ui/Reveal";
+import { TypingTerminal } from "@/components/ui/TypingTerminal";
 
 export const metadata: Metadata = { title: "AI Lab" };
 
 // Planned read-only tools (CLAUDE.md "Future Portfolio Agent"). Not implemented in Phase 1.
 const plannedTools = [
-  { name: "search_projects", detail: "Find projects by topic or technology" },
-  { name: "get_project", detail: "Read one project's verified details" },
-  { name: "search_experience", detail: "Search roles and responsibilities" },
-  { name: "search_research", detail: "Search research entries" },
-  { name: "search_publications", detail: "Search publications" },
+  { name: "search_projects", detail: "Find projects by topic or technology", icon: Layers },
+  { name: "get_project", detail: "Read one project's verified details", icon: Database },
+  { name: "search_experience", detail: "Search roles and responsibilities", icon: Bot },
+  { name: "search_research", detail: "Search research entries", icon: FlaskConical },
+  { name: "search_publications", detail: "Search publications", icon: FileText },
 ];
 
 export default function AiLabPage() {
@@ -53,20 +56,25 @@ export default function AiLabPage() {
               <p>It will be read-only. It can never change portfolio data, and it will say so when it does not know something.</p>
               <StatusBadge label="Planned" />
             </div>
-            <Terminal
-              label="Portfolio Agent status: planned, read-only"
-              lines={[{ prompt: true, text: "agent status" }, { text: "portfolio-agent: planned" }, { text: "mode: read-only" }, { text: "grounding: retrieval (planned)" }]}
-            />
+            <Reveal from="tilt">
+              <TypingTerminal
+                label="Portfolio Agent status: planned, read-only, grounded in retrieval"
+                lines={[{ prompt: true, text: "agent status" }, { text: "portfolio-agent: planned" }, { text: "mode: read-only" }, { text: "grounding: retrieval (planned)" }]}
+              />
+            </Reveal>
           </div>
         </Section>
         <Section labelledBy="tools-heading" last>
           <SectionHeading index="02" label="Tools" id="tools-heading" title="Planned tools" lede="Each tool only reads data. None of them are built yet." />
-          <dl className="mt-10">
-            {plannedTools.map((tool) => (
-              <div key={tool.name} className="numbered-row grid gap-1 py-5 sm:grid-cols-[minmax(200px,280px)_1fr]">
-                <dt className="font-mono text-[15px] text-violet">{tool.name}</dt>
+          <dl className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+            {plannedTools.map((tool, i) => (
+              <Reveal key={tool.name} from="up" delay={i * 80} className="grid gap-3 rounded-[10px] border border-dashed border-line p-5">
+                <span className="grid size-10 place-items-center rounded-full bg-violet/10 text-violet" aria-hidden="true">
+                  <tool.icon size={18} />
+                </span>
+                <dt className="font-mono text-[15px] text-violet">{tool.name}()</dt>
                 <dd className="text-muted">{tool.detail}</dd>
-              </div>
+              </Reveal>
             ))}
           </dl>
           <Link href="/projects" className="btn btn-outline mt-10">

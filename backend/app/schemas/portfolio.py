@@ -20,8 +20,12 @@ class ProjectOut(ORMModel):
     description: str | None
     status: ProjectStatus
     technologies: list[str]
+    period: str | None
+    category: str | None
+    highlights: list[str]
     repository_url: str | None
     demo_url: str | None
+    paper_url: str | None
     featured: bool
 
 

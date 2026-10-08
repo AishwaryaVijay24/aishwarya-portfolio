@@ -4,7 +4,8 @@ import { Suspense, ViewTransition } from "react";
 
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader, SiteHeaderFallback } from "@/components/layout/SiteHeader";
-import { RobotCursor } from "@/components/motion/RobotCursor";
+import { CursorCompanion } from "@/components/motion/CursorCompanion";
+import { MotionProvider } from "@/components/motion/MotionProvider";
 import { site } from "@/lib/config/site";
 import "./globals.css";
 
@@ -43,14 +44,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <a href="#main" className="skip-link">
           Skip to content
         </a>
-        <Suspense fallback={<SiteHeaderFallback />}>
-          <SiteHeader />
-        </Suspense>
-        <ViewTransition>
-          <main id="main">{children}</main>
-        </ViewTransition>
-        <SiteFooter />
-        <RobotCursor />
+        <MotionProvider>
+          <Suspense fallback={<SiteHeaderFallback />}>
+            <SiteHeader />
+          </Suspense>
+          <ViewTransition>
+            <main id="main">{children}</main>
+          </ViewTransition>
+          <SiteFooter />
+          <CursorCompanion />
+        </MotionProvider>
       </body>
     </html>
   );

@@ -18,7 +18,14 @@ class Project(Base):
     description: Mapped[str | None] = mapped_column(Text)
     status: Mapped[str] = mapped_column(String(20))
     technologies: Mapped[list[str]] = mapped_column(JSONList, default=list)
+    # Short display period, e.g. "2026" or "2026 – present".
+    period: Mapped[str | None] = mapped_column(String(40))
+    # One-line area, e.g. "AI agents" or "Retrieval research".
+    category: Mapped[str | None] = mapped_column(String(80))
+    # Verified key points or results, shown separately from the description.
+    highlights: Mapped[list[str]] = mapped_column(JSONList, default=list)
     repository_url: Mapped[str | None] = mapped_column(String(500))
+    paper_url: Mapped[str | None] = mapped_column(String(500))
     demo_url: Mapped[str | None] = mapped_column(String(500))
     featured: Mapped[bool] = mapped_column(Boolean, default=False)
     sort_order: Mapped[int] = mapped_column(Integer, default=0)

@@ -24,7 +24,15 @@ export function apiBaseUrl(): string {
   return (process.env.API_BASE_URL ?? "http://localhost:8000").replace(/\/+$/, "");
 }
 
-export async function apiGet<T>(path: string, guard: Guard<T>): Promise<ApiResult<T>> {
+type Options = {
+  /**
+   * Set for single-item lookups, where 404 means "no such item".
+   * For list endpoints a 404 means the backend is missing or misconfigured.
+   */
+  notFoundMeansMissing?: boolean;
+};
+
+export async function apiGet<T>(path: string, guard: Guard<T>, { notFoundMeansMissing = false }: Options = {}): Promise<ApiResult<T>> {
   // Portfolio data is read per request, never baked into the build.
   await connection();
   const url = `${apiBaseUrl()}${path}`;
@@ -38,13 +46,14 @@ export async function apiGet<T>(path: string, guard: Guard<T>): Promise<ApiResul
   } catch (cause) {
     // Let Next.js's own control-flow errors (e.g. prerender interrupts) through.
     unstable_rethrow(cause);
-    console.error(`[api] GET ${path} failed: ${cause instanceof Error ? cause.message : String(cause)}`);
+    console.error(`[api] GET ${url} failed: ${cause instanceof Error ? cause.message : String(cause)}. Is API_BASE_URL correct?`);
     return { ok: false, error: "unavailable" };
   }
 
-  if (response.status === 404) return { ok: false, error: "not_found" };
+  if (response.status === 404 && notFoundMeansMissing) return { ok: false, error: "not_found" };
   if (!response.ok) {
-    console.error(`[api] GET ${path} returned ${response.status}`);
+    const hint = response.status === 404 ? " (endpoint missing: is API_BASE_URL pointing at the portfolio backend?)" : "";
+    console.error(`[api] GET ${url} returned ${response.status}${hint}`);
     return { ok: false, error: "unavailable" };
   }
 
@@ -52,12 +61,12 @@ export async function apiGet<T>(path: string, guard: Guard<T>): Promise<ApiResul
   try {
     body = await response.json();
   } catch {
-    console.error(`[api] GET ${path} returned invalid JSON`);
+    console.error(`[api] GET ${url} returned invalid JSON`);
     return { ok: false, error: "invalid_response" };
   }
 
   if (!guard(body)) {
-    console.error(`[api] GET ${path} returned an unexpected shape`);
+    console.error(`[api] GET ${url} returned an unexpected shape`);
     return { ok: false, error: "invalid_response" };
   }
   return { ok: true, data: body };
