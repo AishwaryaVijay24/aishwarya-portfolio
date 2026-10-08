@@ -13,7 +13,7 @@ export function Hero() {
     <section
       aria-labelledby="hero-name"
       data-night-band
-      className="night-band on-night grid min-h-[clamp(620px,100svh,980px)] grid-cols-12 grid-rows-[auto_auto_1fr_auto] gap-x-6 px-[var(--rail)] pt-[calc(env(safe-area-inset-top,0px)+84px)] pb-12 md:grid-rows-[auto_1fr_auto_auto] md:pt-[calc(env(safe-area-inset-top,0px)+96px)]"
+      className="night-band on-night grid min-h-[clamp(620px,100svh,980px)] grid-cols-12 grid-rows-[auto_auto_1fr_auto] gap-x-6 px-[var(--rail)] pt-[calc(env(safe-area-inset-top,0px)+84px)] pb-12 lg:grid-rows-[auto_1fr_auto_auto] lg:pt-[calc(env(safe-area-inset-top,0px)+96px)]"
     >
       <HeroField />
 
@@ -24,7 +24,7 @@ export function Hero() {
 
       <div
         data-hero-message
-        className="col-span-full row-start-2 grid max-w-[480px] gap-[18px] self-center pt-7 md:col-span-6 md:col-start-7 md:justify-self-end md:py-6"
+        className="col-span-full row-start-2 grid max-w-[480px] gap-[18px] self-center pt-7 lg:col-span-6 lg:col-start-7 lg:justify-self-end lg:py-6"
       >
         <p className="condensed text-[clamp(26px,3vw,38px)] leading-[1.08] font-semibold tracking-[-0.02em] text-balance">
           AI × <em className="display-word text-[1.12em] text-lilac">Software</em> Engineering
@@ -44,11 +44,11 @@ export function Hero() {
         </div>
       </div>
 
-      <h1 id="hero-name" className="col-span-full row-start-3 mt-10 grid self-end leading-[0.86] md:mt-0 md:self-auto">
-        <span className="display-word text-[clamp(52px,15vw,110px)] tracking-[-0.03em] text-lilac md:text-[clamp(52px,9vw,140px)]">
+      <h1 id="hero-name" className="col-span-full row-start-3 mt-10 grid self-end leading-[0.86] lg:mt-0 lg:self-auto">
+        <span className="display-word text-[clamp(52px,15vw,110px)] tracking-[-0.03em] text-lilac lg:text-[clamp(52px,9vw,140px)]">
           {site.firstName}
         </span>
-        <span className="condensed pl-[0.3em] text-[clamp(52px,15vw,110px)] font-bold tracking-[-0.035em] [font-stretch:75%] md:pl-[0.55em] md:text-[clamp(52px,9vw,140px)]">
+        <span className="condensed pl-[0.3em] text-[clamp(52px,15vw,110px)] font-bold tracking-[-0.035em] [font-stretch:75%] lg:pl-[0.55em] lg:text-[clamp(52px,9vw,140px)]">
           {site.lastName}
         </span>
       </h1>

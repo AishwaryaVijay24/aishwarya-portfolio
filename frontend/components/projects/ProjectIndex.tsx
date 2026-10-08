@@ -39,7 +39,7 @@ export function ProjectIndex({ projects }: { projects: Project[] }) {
             <Reveal as="li" key={p.slug} from="left" delay={i * 80} className="numbered-row">
               <Link
                 href={`/projects/${p.slug}`}
-                className="row-main group grid grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-1 py-7 no-underline md:grid-cols-[80px_1fr_220px_120px_140px]"
+                className="row-main group grid grid-cols-[auto_1fr] items-baseline gap-x-6 gap-y-1 py-7 no-underline lg:grid-cols-[72px_minmax(0,1fr)_200px_110px_120px]"
                 onPointerEnter={(e) => e.pointerType === "mouse" && setActive(p.slug)}
                 onFocus={() => setActive(null)}
                 data-cursor="view"
@@ -49,9 +49,9 @@ export function ProjectIndex({ projects }: { projects: Project[] }) {
                   {lead}
                   <em className="display-word">{last}</em>
                 </span>
-                <span className="col-start-2 font-mono text-xs text-muted md:col-start-auto">{p.category}</span>
-                <span className="col-start-2 font-mono text-xs text-muted md:col-start-auto">{p.period}</span>
-                <span className="label col-start-2 text-[11px] text-violet md:col-start-auto md:justify-self-end">{projectStatusLabel[p.status]}</span>
+                <span className="col-start-2 font-mono text-xs text-muted lg:col-start-auto">{p.category}</span>
+                <span className="col-start-2 font-mono text-xs text-muted lg:col-start-auto">{p.period}</span>
+                <span className="label col-start-2 text-[11px] text-violet lg:col-start-auto lg:justify-self-end">{projectStatusLabel[p.status]}</span>
               </Link>
             </Reveal>
           );

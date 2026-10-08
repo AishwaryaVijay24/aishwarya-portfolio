@@ -8,6 +8,24 @@ type Mode = "idle" | "link" | "view";
 const INTERACTIVE = "a, button, select, summary, [role='button'], .system .node";
 const VIEW = "[data-cursor='view']";
 
+// Geometry (px). The robot sits just below-right of the pointer and flips to the
+// other side near the right/bottom edges, so it is always fully inside the viewport.
+const BOT = 28;
+const GAP = 8;
+const EDGE = 4;
+const RING = 40;
+const LABEL_W = 84;
+
+const clamp = (v: number, min: number, max: number) => Math.min(Math.max(v, min), Math.max(min, max));
+
+function robotPlacement(px: number, py: number, vw: number, vh: number) {
+  let bx = px + GAP;
+  if (bx + BOT > vw - EDGE) bx = px - GAP - BOT;
+  let by = py + GAP + 4;
+  if (by + BOT > vh - EDGE) by = py - GAP - BOT;
+  return { bx: clamp(bx, EDGE, vw - BOT - EDGE), by: clamp(by, EDGE, vh - BOT - EDGE) };
+}
+
 /**
  * Cursor companion (DESIGN.md §8). The system cursor stays; this layer only follows it.
  * - A small robot trails the pointer with spring lag, leans into movement and looks where it goes.
@@ -20,19 +38,25 @@ export function CursorCompanion() {
   const [enabled, setEnabled] = useState(false);
   const [mode, setMode] = useState<Mode>("idle");
   const [blink, setBlink] = useState(false);
+  const [labelLeft, setLabelLeft] = useState(false);
 
-  // Pointer position (raw) and the springs that trail it.
-  const x = useMotionValue(-200);
-  const y = useMotionValue(-200);
+  // Pointer position (raw), the clamped targets, and the springs that trail them.
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+  const ringTX = useMotionValue(0);
+  const ringTY = useMotionValue(0);
+  const botTX = useMotionValue(0);
+  const botTY = useMotionValue(0);
   const visible = useMotionValue(0);
-  const ringX = useSpring(x, { stiffness: 520, damping: 38, mass: 0.4 });
-  const ringY = useSpring(y, { stiffness: 520, damping: 38, mass: 0.4 });
-  const botX = useSpring(x, { stiffness: 170, damping: 22, mass: 0.7 });
-  const botY = useSpring(y, { stiffness: 170, damping: 22, mass: 0.7 });
+  const ringX = useSpring(ringTX, { stiffness: 520, damping: 38, mass: 0.4 });
+  const ringY = useSpring(ringTY, { stiffness: 520, damping: 38, mass: 0.4 });
+  const botX = useSpring(botTX, { stiffness: 170, damping: 22, mass: 0.7 });
+  const botY = useSpring(botTY, { stiffness: 170, damping: 22, mass: 0.7 });
   const opacity = useSpring(visible, { stiffness: 300, damping: 30 });
-  const lean = useTransform(() => Math.max(-14, Math.min(14, (x.get() - botX.get()) * 0.35)));
-  const eyeX = useTransform(() => Math.max(-1.8, Math.min(1.8, (x.get() - botX.get()) * 0.06)));
-  const eyeY = useTransform(() => Math.max(-1.8, Math.min(1.8, (y.get() - botY.get()) * 0.06)));
+  // Lean and look relative to where the robot is heading, not where it is.
+  const lean = useTransform(() => clamp((botTX.get() - botX.get()) * 0.35, -14, 14));
+  const eyeX = useTransform(() => clamp((x.get() - (botX.get() + BOT / 2)) * 0.05, -1.8, 1.8));
+  const eyeY = useTransform(() => clamp((y.get() - (botY.get() + BOT / 2)) * 0.05, -1.8, 1.8));
 
   useEffect(() => {
     const fine = window.matchMedia("(pointer: fine)");
@@ -47,13 +71,21 @@ export function CursorCompanion() {
     let placed = false;
     const onMove = (e: PointerEvent) => {
       if (e.pointerType !== "mouse") return;
+      const vw = document.documentElement.clientWidth;
+      const vh = window.innerHeight;
       x.set(e.clientX);
       y.set(e.clientY);
+      ringTX.set(clamp(e.clientX, RING / 2, vw - RING / 2));
+      ringTY.set(clamp(e.clientY, RING / 2, vh - RING / 2));
+      const { bx, by } = robotPlacement(e.clientX, e.clientY, vw, vh);
+      botTX.set(bx);
+      botTY.set(by);
+      setLabelLeft(bx + BOT + GAP + LABEL_W > vw - EDGE);
       if (!placed) {
-        ringX.jump(e.clientX);
-        ringY.jump(e.clientY);
-        botX.jump(e.clientX);
-        botY.jump(e.clientY);
+        ringX.jump(ringTX.get());
+        ringY.jump(ringTY.get());
+        botX.jump(bx);
+        botY.jump(by);
         placed = true;
       }
       visible.set(1);
@@ -81,7 +113,7 @@ export function CursorCompanion() {
       window.removeEventListener("blur", hide);
       clearTimeout(timer);
     };
-  }, [enabled, x, y, ringX, ringY, botX, botY, visible]);
+  }, [enabled, x, y, ringTX, ringTY, botTX, botTY, ringX, ringY, botX, botY, visible]);
 
   if (!enabled) return null;
 
@@ -125,6 +157,7 @@ export function CursorCompanion() {
           {mode === "view" && (
             <motion.span
               className="cursor-label"
+              data-side={labelLeft ? "left" : "right"}
               initial={{ opacity: 0, scale: 0.8, x: -6 }}
               animate={{ opacity: 1, scale: 1, x: 0 }}
               exit={{ opacity: 0, scale: 0.8, x: -6 }}

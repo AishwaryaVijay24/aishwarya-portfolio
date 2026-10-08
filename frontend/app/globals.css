@@ -229,6 +229,8 @@ body {
 /* ── Threaded body: rail, graph paper, glow ───────── */
 .threaded {
   position: relative;
+  /* Elements entering from the side start off-position; clip so they never widen the page. */
+  overflow-x: clip;
   padding-left: calc(var(--rail) + var(--rail-gap));
   padding-right: var(--rail);
   --g-minor: color-mix(in srgb, var(--ink) 4.5%, transparent);
@@ -428,6 +430,11 @@ a:focus-visible .icon-nudge {
   transform: translate(2px, -2px);
 }
 
+.cursor-label[data-side="left"] {
+  left: auto;
+  right: 8px;
+}
+
 /* Cursor companion: zero-size anchors follow the pointer; children are offset from them */
 .cursor-anchor {
   position: fixed;
@@ -449,8 +456,8 @@ a:focus-visible .icon-nudge {
 }
 .cursor-label {
   position: absolute;
-  left: 54px;
-  top: 22px;
+  left: 36px;
+  top: 6px;
   font: 500 10px/1 var(--font-mono);
   letter-spacing: 0.12em;
   text-transform: uppercase;
@@ -575,11 +582,12 @@ a:focus-visible .icon-nudge {
 
 /* ── Robot companion ──────────────────────────────── */
 .robot {
+  /* The anchor is placed at the robot's top-left (see CursorCompanion). */
   position: absolute;
-  left: 14px;
-  top: 16px;
-  width: 34px;
-  height: 34px;
+  left: 0;
+  top: 0;
+  width: 28px;
+  height: 28px;
   pointer-events: none;
   overflow: visible;
 }
