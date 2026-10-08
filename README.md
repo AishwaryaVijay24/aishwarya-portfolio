@@ -68,6 +68,8 @@ npm run dev                  # http://localhost:3000
 | `npm run lint` | ESLint |
 | `npm run typecheck` | TypeScript |
 
+Accessibility is checked with axe-core (WCAG 2.2 A/AA) in both themes, a keyboard walkthrough of focus order and indicators, and reduced-motion checks.
+
 ### Structure
 
 ```text
@@ -77,16 +79,21 @@ frontend/
     hero/              Hero, neural mesh (React Three Fiber, lazy-loaded, client-only)
     layout/            header, footer, page thread, page hero band
     navigation/        nav links with sliding marker, theme toggle
-    projects/          project cards, layered tilt, generated network art
+    projects/          spotlights, flip-card rail, editorial index, per-project visuals
     experience/        numbered list
     architecture/      Living System diagram
-    motion/            robot cursor companion
-    technology/        technology list
+    motion/            cursor companion, reveals, magnetic CTAs, parallax
+    technology/        technology list with logos (Simple Icons, CC0)
     ui/                section heading, reveal, states, badges, terminal
   lib/
     api/               typed server-side client for the FastAPI backend
     config/site.ts     identity copy and external links (single source)
+    techIcons.ts       technology → logo mapping (exact brands or makers only)
+    visuals.ts         project visual → accent colour
     content/           content about the site itself (build roadmap, architecture layers)
+  app/icon.tsx, app/apple-icon.tsx, app/opengraph-image.tsx
+                       generated browser icon and link-preview image
+  assets/fonts/        static brand fonts (OFL) used by the generated images
   tests/               Vitest tests
 ```
 
@@ -104,6 +111,7 @@ Data is fetched on the server per request. The browser never calls the backend d
 ### Frontend configuration
 
 - `API_BASE_URL`: backend address (see `frontend/.env.example`). Never commit `.env` files.
+- `SITE_URL`: the site's public address, used for absolute link-preview URLs. In Docker it is passed at build time (set it in `.env`).
 - External links (GitHub, LinkedIn, email) live in `frontend/lib/config/site.ts`. LinkedIn and email are hidden until set there.
 
 ## Backend
@@ -167,6 +175,11 @@ The file is validated strictly: unknown fields and statuses fail with a clear me
       "technologies": ["Python", "FastAPI"],
       "repository_url": null,
       "demo_url": null,
+      "paper_url": null,
+      "period": "2026",
+      "category": "Retrieval",
+      "highlights": ["One verified key point"],
+      "visual": "pipeline",
       "featured": true
     }
   ],
@@ -179,6 +192,8 @@ The file is validated strictly: unknown fields and statuses fail with a clear me
 ```
 
 - Project status: `planned`, `prototype`, `experimental`, `in_progress`, `active`, `completed`
+- Project visual: `agents`, `pipeline`, `services`, `vectors`, `lowrank`, `app` or `network` (artwork shown for the project)
+- Optional project fields: `period`, `category`, `highlights` (verified key points), `paper_url`
 - Research status: `planned`, `in_progress`, `completed`, `published`
 - Dates: `YYYY-MM` or `YYYY-MM-DD`; `end_date: null` means ongoing
 - List order in the file is the display order (featured projects first)

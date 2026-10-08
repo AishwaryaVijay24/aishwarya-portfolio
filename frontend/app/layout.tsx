@@ -19,6 +19,8 @@ const fraunces = Fraunces({
 const dmMono = DM_Mono({ subsets: ["latin"], weight: ["400", "500"], variable: "--font-dm-mono" });
 
 export const metadata: Metadata = {
+  // Absolute base for link-preview images and canonical URLs.
+  metadataBase: new URL(process.env.SITE_URL ?? "http://localhost:3000"),
   title: { default: `${site.name} · ${site.positioning}`, template: `%s · ${site.name}` },
   description: site.description,
 };

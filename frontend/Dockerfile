@@ -7,7 +7,10 @@ RUN npm ci
 
 FROM node:24-alpine AS build
 WORKDIR /app
-ENV NEXT_TELEMETRY_DISABLED=1
+# Page metadata (link-preview URLs) is fixed at build time, so the public URL is a build argument.
+ARG SITE_URL=http://localhost:3000
+ENV NEXT_TELEMETRY_DISABLED=1 \
+    SITE_URL=$SITE_URL
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 RUN npm run build
@@ -25,6 +28,8 @@ RUN addgroup -S app && adduser -S app -G app
 COPY --from=build --chown=app:app /app/.next/standalone ./
 COPY --from=build --chown=app:app /app/.next/static ./.next/static
 COPY --from=build --chown=app:app /app/public ./public
+# Fonts read at request time by the generated icon and link-preview image.
+COPY --from=build --chown=app:app /app/assets ./assets
 USER app
 EXPOSE 3000
 CMD ["node", "server.js"]

@@ -44,8 +44,9 @@ export function SiteHeader() {
 
   return (
     <header className="site-header" data-solid={solid || menuOpen} data-hidden={hidden && !menuOpen}>
-      <Link href="/" className="display-word text-[26px] leading-none no-underline" aria-label="Aishwarya Vijay, home">
-        av
+      <Link href="/" className="display-word text-[26px] leading-none no-underline">
+        <span aria-hidden="true">av</span>
+        <span className="sr-only">Aishwarya Vijay, home</span>
       </Link>
       <div className="flex items-center gap-4 md:gap-8">
         <NavLinks menuOpen={menuOpen} onMenuOpenChange={setMenuOpen} />
@@ -59,8 +60,9 @@ export function SiteHeader() {
 export function SiteHeaderFallback() {
   return (
     <header className="site-header" data-solid="false">
-      <Link href="/" className="display-word text-[26px] leading-none no-underline" aria-label="Aishwarya Vijay, home">
-        av
+      <Link href="/" className="display-word text-[26px] leading-none no-underline">
+        <span aria-hidden="true">av</span>
+        <span className="sr-only">Aishwarya Vijay, home</span>
       </Link>
       <nav aria-label="Main" className="hidden md:block">
         <ul className="label flex gap-7">
